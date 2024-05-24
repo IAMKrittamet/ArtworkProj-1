@@ -8,166 +8,178 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BLL.BizMM65Service {
-    
-    
+namespace BLL.BizMM65Service
+{
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BizMM65Service.MM65")]
-    public interface MM65 {
-        
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "BizMM65Service.MM65")]
+    public interface MM65
+    {
+
         // CODEGEN: Generating message contract since the operation inputArtworkNumber is neither RPC nor document wrapped.
-        [System.ServiceModel.OperationContractAttribute(Action="inputArtworkNumber", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.OperationContractAttribute(Action = "inputArtworkNumber", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults = true)]
         BLL.BizMM65Service.inputArtworkNumberResponse1 inputArtworkNumber(BLL.BizMM65Service.inputArtworkNumberRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="inputArtworkNumber", ReplyAction="*")]
+
+        [System.ServiceModel.OperationContractAttribute(Action = "inputArtworkNumber", ReplyAction = "*")]
         System.Threading.Tasks.Task<BLL.BizMM65Service.inputArtworkNumberResponse1> inputArtworkNumberAsync(BLL.BizMM65Service.inputArtworkNumberRequest request);
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
-    public partial class inputArtworkNumber : object, System.ComponentModel.INotifyPropertyChanged {
-        
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://tempuri.org/")]
+    public partial class inputArtworkNumber : object, System.ComponentModel.INotifyPropertyChanged
+    {
+
         private ArtworkObject _artworkObjectField;
-        
+
         private InboundArtwork[] _itemsArtworkField;
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public ArtworkObject _artworkObject {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        public ArtworkObject _artworkObject
+        {
+            get
+            {
                 return this._artworkObjectField;
             }
-            set {
+            set
+            {
                 this._artworkObjectField = value;
                 this.RaisePropertyChanged("_artworkObject");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
-        public InboundArtwork[] _itemsArtwork {
-            get {
+        [System.Xml.Serialization.XmlArrayAttribute(Order = 1)]
+        public InboundArtwork[] _itemsArtwork
+        {
+            get
+            {
                 return this._itemsArtworkField;
             }
-            set {
+            set
+            {
                 this._itemsArtworkField = value;
                 this.RaisePropertyChanged("_itemsArtwork");
             }
         }
-        
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
+            if ((propertyChanged != null))
+            {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ArtworkObject : object, System.ComponentModel.INotifyPropertyChanged {
-        
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://tempuri.org/")]
+    public partial class ArtworkObject : object, System.ComponentModel.INotifyPropertyChanged
+    {
+
         private string artworkNumberField;
-        
+
         private string dateField;
-        
+
         private string timeField;
-        
+
         private string recordTypeField;
-        
+
         private string materialNumberField;
-        
+
         private string materialDescriptionField;
-        
+
         private string materialCreatedDateField;
-        
+
         private string artworkURLField;
-        
+
         private string statusField;
-        
+
         private string pAUserNameField;
-        
+
         private string pGUserNameField;
-        
+
         private string referenceMaterialField;
-        
+
         private string plantField;
-        
+
         private string printingStyleofPrimaryField;
-        
+
         private string printingStyleofSecondaryField;
-        
+
         private string customersDesignField;
-        
+
         private string customersDesignDetailField;
-        
+
         private string customersSpecField;
-        
+
         private string customersSpecDetailField;
-        
+
         private string customersSizeField;
-        
+
         private string customersSizeDetailField;
-        
+
         private string customerNominatesVendorField;
-        
+
         private string customerNominatesVendorDetailField;
-        
+
         private string customerNominatesColorPantoneField;
-        
+
         private string customerNominatesColorPantoneDetailField;
-        
+
         private string customersBarcodeScanableField;
-        
+
         private string customersBarcodeScanableDetailField;
-        
+
         private string customersBarcodeSpecField;
-        
+
         private string customersBarcodeSpecDetailField;
-        
+
         private string firstInfoGroupField;
-        
+
         private string sONumberField;
-        
+
         private string sOitemField;
-        
+
         private string sOPlantField;
-        
+
         private string pICMKTField;
-        
+
         private string destinationField;
-        
+
         private string remarkNoteofPAField;
-        
+
         private string finalInfoGroupField;
-        
+
         private string remarkNoteofPGField;
-        
+
         private string completeInfoGroupField;
-        
+
         private string productionExpirydatesystemField;
-        
+
         private string seriousnessofcolorprintingField;
-        
+
         private string custIngreNutritionAnalysisField;
-        
+
         private string shadeLimitField;
-        
+
         private string packageQuantityField;
-        
+
         private string wastePercentField;
-        
+
         private string SustainMaterialField;
         private string SustainPlasticField;
         private string SustainReuseableField;
@@ -181,540 +193,675 @@ namespace BLL.BizMM65Service {
         private string SusRecycledContentField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string ArtworkNumber {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        public string ArtworkNumber
+        {
+            get
+            {
                 return this.artworkNumberField;
             }
-            set {
+            set
+            {
                 this.artworkNumberField = value;
                 this.RaisePropertyChanged("ArtworkNumber");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Date {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 1)]
+        public string Date
+        {
+            get
+            {
                 return this.dateField;
             }
-            set {
+            set
+            {
                 this.dateField = value;
                 this.RaisePropertyChanged("Date");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public string Time {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 2)]
+        public string Time
+        {
+            get
+            {
                 return this.timeField;
             }
-            set {
+            set
+            {
                 this.timeField = value;
                 this.RaisePropertyChanged("Time");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public string RecordType {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 3)]
+        public string RecordType
+        {
+            get
+            {
                 return this.recordTypeField;
             }
-            set {
+            set
+            {
                 this.recordTypeField = value;
                 this.RaisePropertyChanged("RecordType");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string MaterialNumber {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 4)]
+        public string MaterialNumber
+        {
+            get
+            {
                 return this.materialNumberField;
             }
-            set {
+            set
+            {
                 this.materialNumberField = value;
                 this.RaisePropertyChanged("MaterialNumber");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public string MaterialDescription {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 5)]
+        public string MaterialDescription
+        {
+            get
+            {
                 return this.materialDescriptionField;
             }
-            set {
+            set
+            {
                 this.materialDescriptionField = value;
                 this.RaisePropertyChanged("MaterialDescription");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public string MaterialCreatedDate {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 6)]
+        public string MaterialCreatedDate
+        {
+            get
+            {
                 return this.materialCreatedDateField;
             }
-            set {
+            set
+            {
                 this.materialCreatedDateField = value;
                 this.RaisePropertyChanged("MaterialCreatedDate");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
-        public string ArtworkURL {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 7)]
+        public string ArtworkURL
+        {
+            get
+            {
                 return this.artworkURLField;
             }
-            set {
+            set
+            {
                 this.artworkURLField = value;
                 this.RaisePropertyChanged("ArtworkURL");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
-        public string Status {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 8)]
+        public string Status
+        {
+            get
+            {
                 return this.statusField;
             }
-            set {
+            set
+            {
                 this.statusField = value;
                 this.RaisePropertyChanged("Status");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
-        public string PAUserName {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 9)]
+        public string PAUserName
+        {
+            get
+            {
                 return this.pAUserNameField;
             }
-            set {
+            set
+            {
                 this.pAUserNameField = value;
                 this.RaisePropertyChanged("PAUserName");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
-        public string PGUserName {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 10)]
+        public string PGUserName
+        {
+            get
+            {
                 return this.pGUserNameField;
             }
-            set {
+            set
+            {
                 this.pGUserNameField = value;
                 this.RaisePropertyChanged("PGUserName");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
-        public string ReferenceMaterial {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 11)]
+        public string ReferenceMaterial
+        {
+            get
+            {
                 return this.referenceMaterialField;
             }
-            set {
+            set
+            {
                 this.referenceMaterialField = value;
                 this.RaisePropertyChanged("ReferenceMaterial");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
-        public string Plant {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 12)]
+        public string Plant
+        {
+            get
+            {
                 return this.plantField;
             }
-            set {
+            set
+            {
                 this.plantField = value;
                 this.RaisePropertyChanged("Plant");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
-        public string PrintingStyleofPrimary {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 13)]
+        public string PrintingStyleofPrimary
+        {
+            get
+            {
                 return this.printingStyleofPrimaryField;
             }
-            set {
+            set
+            {
                 this.printingStyleofPrimaryField = value;
                 this.RaisePropertyChanged("PrintingStyleofPrimary");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
-        public string PrintingStyleofSecondary {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 14)]
+        public string PrintingStyleofSecondary
+        {
+            get
+            {
                 return this.printingStyleofSecondaryField;
             }
-            set {
+            set
+            {
                 this.printingStyleofSecondaryField = value;
                 this.RaisePropertyChanged("PrintingStyleofSecondary");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=15)]
-        public string CustomersDesign {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 15)]
+        public string CustomersDesign
+        {
+            get
+            {
                 return this.customersDesignField;
             }
-            set {
+            set
+            {
                 this.customersDesignField = value;
                 this.RaisePropertyChanged("CustomersDesign");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=16)]
-        public string CustomersDesignDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 16)]
+        public string CustomersDesignDetail
+        {
+            get
+            {
                 return this.customersDesignDetailField;
             }
-            set {
+            set
+            {
                 this.customersDesignDetailField = value;
                 this.RaisePropertyChanged("CustomersDesignDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
-        public string CustomersSpec {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 17)]
+        public string CustomersSpec
+        {
+            get
+            {
                 return this.customersSpecField;
             }
-            set {
+            set
+            {
                 this.customersSpecField = value;
                 this.RaisePropertyChanged("CustomersSpec");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
-        public string CustomersSpecDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 18)]
+        public string CustomersSpecDetail
+        {
+            get
+            {
                 return this.customersSpecDetailField;
             }
-            set {
+            set
+            {
                 this.customersSpecDetailField = value;
                 this.RaisePropertyChanged("CustomersSpecDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
-        public string CustomersSize {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 19)]
+        public string CustomersSize
+        {
+            get
+            {
                 return this.customersSizeField;
             }
-            set {
+            set
+            {
                 this.customersSizeField = value;
                 this.RaisePropertyChanged("CustomersSize");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
-        public string CustomersSizeDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 20)]
+        public string CustomersSizeDetail
+        {
+            get
+            {
                 return this.customersSizeDetailField;
             }
-            set {
+            set
+            {
                 this.customersSizeDetailField = value;
                 this.RaisePropertyChanged("CustomersSizeDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
-        public string CustomerNominatesVendor {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 21)]
+        public string CustomerNominatesVendor
+        {
+            get
+            {
                 return this.customerNominatesVendorField;
             }
-            set {
+            set
+            {
                 this.customerNominatesVendorField = value;
                 this.RaisePropertyChanged("CustomerNominatesVendor");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
-        public string CustomerNominatesVendorDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 22)]
+        public string CustomerNominatesVendorDetail
+        {
+            get
+            {
                 return this.customerNominatesVendorDetailField;
             }
-            set {
+            set
+            {
                 this.customerNominatesVendorDetailField = value;
                 this.RaisePropertyChanged("CustomerNominatesVendorDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=23)]
-        public string CustomerNominatesColorPantone {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 23)]
+        public string CustomerNominatesColorPantone
+        {
+            get
+            {
                 return this.customerNominatesColorPantoneField;
             }
-            set {
+            set
+            {
                 this.customerNominatesColorPantoneField = value;
                 this.RaisePropertyChanged("CustomerNominatesColorPantone");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
-        public string CustomerNominatesColorPantoneDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 24)]
+        public string CustomerNominatesColorPantoneDetail
+        {
+            get
+            {
                 return this.customerNominatesColorPantoneDetailField;
             }
-            set {
+            set
+            {
                 this.customerNominatesColorPantoneDetailField = value;
                 this.RaisePropertyChanged("CustomerNominatesColorPantoneDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
-        public string CustomersBarcodeScanable {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 25)]
+        public string CustomersBarcodeScanable
+        {
+            get
+            {
                 return this.customersBarcodeScanableField;
             }
-            set {
+            set
+            {
                 this.customersBarcodeScanableField = value;
                 this.RaisePropertyChanged("CustomersBarcodeScanable");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
-        public string CustomersBarcodeScanableDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 26)]
+        public string CustomersBarcodeScanableDetail
+        {
+            get
+            {
                 return this.customersBarcodeScanableDetailField;
             }
-            set {
+            set
+            {
                 this.customersBarcodeScanableDetailField = value;
                 this.RaisePropertyChanged("CustomersBarcodeScanableDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
-        public string CustomersBarcodeSpec {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 27)]
+        public string CustomersBarcodeSpec
+        {
+            get
+            {
                 return this.customersBarcodeSpecField;
             }
-            set {
+            set
+            {
                 this.customersBarcodeSpecField = value;
                 this.RaisePropertyChanged("CustomersBarcodeSpec");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
-        public string CustomersBarcodeSpecDetail {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 28)]
+        public string CustomersBarcodeSpecDetail
+        {
+            get
+            {
                 return this.customersBarcodeSpecDetailField;
             }
-            set {
+            set
+            {
                 this.customersBarcodeSpecDetailField = value;
                 this.RaisePropertyChanged("CustomersBarcodeSpecDetail");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
-        public string FirstInfoGroup {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 29)]
+        public string FirstInfoGroup
+        {
+            get
+            {
                 return this.firstInfoGroupField;
             }
-            set {
+            set
+            {
                 this.firstInfoGroupField = value;
                 this.RaisePropertyChanged("FirstInfoGroup");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
-        public string SONumber {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 30)]
+        public string SONumber
+        {
+            get
+            {
                 return this.sONumberField;
             }
-            set {
+            set
+            {
                 this.sONumberField = value;
                 this.RaisePropertyChanged("SONumber");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
-        public string SOitem {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 31)]
+        public string SOitem
+        {
+            get
+            {
                 return this.sOitemField;
             }
-            set {
+            set
+            {
                 this.sOitemField = value;
                 this.RaisePropertyChanged("SOitem");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
-        public string SOPlant {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 32)]
+        public string SOPlant
+        {
+            get
+            {
                 return this.sOPlantField;
             }
-            set {
+            set
+            {
                 this.sOPlantField = value;
                 this.RaisePropertyChanged("SOPlant");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
-        public string PICMKT {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 33)]
+        public string PICMKT
+        {
+            get
+            {
                 return this.pICMKTField;
             }
-            set {
+            set
+            {
                 this.pICMKTField = value;
                 this.RaisePropertyChanged("PICMKT");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=34)]
-        public string Destination {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 34)]
+        public string Destination
+        {
+            get
+            {
                 return this.destinationField;
             }
-            set {
+            set
+            {
                 this.destinationField = value;
                 this.RaisePropertyChanged("Destination");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
-        public string RemarkNoteofPA {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 35)]
+        public string RemarkNoteofPA
+        {
+            get
+            {
                 return this.remarkNoteofPAField;
             }
-            set {
+            set
+            {
                 this.remarkNoteofPAField = value;
                 this.RaisePropertyChanged("RemarkNoteofPA");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=36)]
-        public string FinalInfoGroup {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 36)]
+        public string FinalInfoGroup
+        {
+            get
+            {
                 return this.finalInfoGroupField;
             }
-            set {
+            set
+            {
                 this.finalInfoGroupField = value;
                 this.RaisePropertyChanged("FinalInfoGroup");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=37)]
-        public string RemarkNoteofPG {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 37)]
+        public string RemarkNoteofPG
+        {
+            get
+            {
                 return this.remarkNoteofPGField;
             }
-            set {
+            set
+            {
                 this.remarkNoteofPGField = value;
                 this.RaisePropertyChanged("RemarkNoteofPG");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=38)]
-        public string CompleteInfoGroup {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 38)]
+        public string CompleteInfoGroup
+        {
+            get
+            {
                 return this.completeInfoGroupField;
             }
-            set {
+            set
+            {
                 this.completeInfoGroupField = value;
                 this.RaisePropertyChanged("CompleteInfoGroup");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=39)]
-        public string ProductionExpirydatesystem {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 39)]
+        public string ProductionExpirydatesystem
+        {
+            get
+            {
                 return this.productionExpirydatesystemField;
             }
-            set {
+            set
+            {
                 this.productionExpirydatesystemField = value;
                 this.RaisePropertyChanged("ProductionExpirydatesystem");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
-        public string Seriousnessofcolorprinting {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 40)]
+        public string Seriousnessofcolorprinting
+        {
+            get
+            {
                 return this.seriousnessofcolorprintingField;
             }
-            set {
+            set
+            {
                 this.seriousnessofcolorprintingField = value;
                 this.RaisePropertyChanged("Seriousnessofcolorprinting");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
-        public string CustIngreNutritionAnalysis {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 41)]
+        public string CustIngreNutritionAnalysis
+        {
+            get
+            {
                 return this.custIngreNutritionAnalysisField;
             }
-            set {
+            set
+            {
                 this.custIngreNutritionAnalysisField = value;
                 this.RaisePropertyChanged("CustIngreNutritionAnalysis");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=42)]
-        public string ShadeLimit {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 42)]
+        public string ShadeLimit
+        {
+            get
+            {
                 return this.shadeLimitField;
             }
-            set {
+            set
+            {
                 this.shadeLimitField = value;
                 this.RaisePropertyChanged("ShadeLimit");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=43)]
-        public string PackageQuantity {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 43)]
+        public string PackageQuantity
+        {
+            get
+            {
                 return this.packageQuantityField;
             }
-            set {
+            set
+            {
                 this.packageQuantityField = value;
                 this.RaisePropertyChanged("PackageQuantity");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=44)]
-        public string WastePercent {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 44)]
+        public string WastePercent
+        {
+            get
+            {
                 return this.wastePercentField;
             }
-            set {
+            set
+            {
                 this.wastePercentField = value;
                 this.RaisePropertyChanged("WastePercent");
             }
@@ -856,228 +1003,274 @@ namespace BLL.BizMM65Service {
             }
         }
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
+            if ((propertyChanged != null))
+            {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class InboundArtwork : object, System.ComponentModel.INotifyPropertyChanged {
-        
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://tempuri.org/")]
+    public partial class InboundArtwork : object, System.ComponentModel.INotifyPropertyChanged
+    {
+
         private string artworkNumberField;
-        
+
         private string dateField;
-        
+
         private string timeField;
-        
+
         private string characteristicField;
-        
+
         private string valueField;
-        
+
         private string descriptionField;
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string ArtworkNumber {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        public string ArtworkNumber
+        {
+            get
+            {
                 return this.artworkNumberField;
             }
-            set {
+            set
+            {
                 this.artworkNumberField = value;
                 this.RaisePropertyChanged("ArtworkNumber");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Date {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 1)]
+        public string Date
+        {
+            get
+            {
                 return this.dateField;
             }
-            set {
+            set
+            {
                 this.dateField = value;
                 this.RaisePropertyChanged("Date");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public string Time {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 2)]
+        public string Time
+        {
+            get
+            {
                 return this.timeField;
             }
-            set {
+            set
+            {
                 this.timeField = value;
                 this.RaisePropertyChanged("Time");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public string Characteristic {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 3)]
+        public string Characteristic
+        {
+            get
+            {
                 return this.characteristicField;
             }
-            set {
+            set
+            {
                 this.characteristicField = value;
                 this.RaisePropertyChanged("Characteristic");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string Value {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 4)]
+        public string Value
+        {
+            get
+            {
                 return this.valueField;
             }
-            set {
+            set
+            {
                 this.valueField = value;
                 this.RaisePropertyChanged("Value");
             }
         }
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public string Description {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 5)]
+        public string Description
+        {
+            get
+            {
                 return this.descriptionField;
             }
-            set {
+            set
+            {
                 this.descriptionField = value;
                 this.RaisePropertyChanged("Description");
             }
         }
-        
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
+            if ((propertyChanged != null))
+            {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
-    public partial class inputArtworkNumberResponse : object, System.ComponentModel.INotifyPropertyChanged {
-        
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://tempuri.org/")]
+    public partial class inputArtworkNumberResponse : object, System.ComponentModel.INotifyPropertyChanged
+    {
+
         private string inputArtworkNumberResultField;
-        
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string inputArtworkNumberResult {
-            get {
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        public string inputArtworkNumberResult
+        {
+            get
+            {
                 return this.inputArtworkNumberResultField;
             }
-            set {
+            set
+            {
                 this.inputArtworkNumberResultField = value;
                 this.RaisePropertyChanged("inputArtworkNumberResult");
             }
         }
-        
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
+            if ((propertyChanged != null))
+            {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class inputArtworkNumberRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class inputArtworkNumberRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber;
-        
-        public inputArtworkNumberRequest() {
+
+        public inputArtworkNumberRequest()
+        {
         }
-        
-        public inputArtworkNumberRequest(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber) {
+
+        public inputArtworkNumberRequest(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber)
+        {
             this.inputArtworkNumber = inputArtworkNumber;
         }
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class inputArtworkNumberResponse1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class inputArtworkNumberResponse1
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
         public BLL.BizMM65Service.inputArtworkNumberResponse inputArtworkNumberResponse;
-        
-        public inputArtworkNumberResponse1() {
+
+        public inputArtworkNumberResponse1()
+        {
         }
-        
-        public inputArtworkNumberResponse1(BLL.BizMM65Service.inputArtworkNumberResponse inputArtworkNumberResponse) {
+
+        public inputArtworkNumberResponse1(BLL.BizMM65Service.inputArtworkNumberResponse inputArtworkNumberResponse)
+        {
             this.inputArtworkNumberResponse = inputArtworkNumberResponse;
         }
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface MM65Channel : BLL.BizMM65Service.MM65, System.ServiceModel.IClientChannel {
+    public interface MM65Channel : BLL.BizMM65Service.MM65, System.ServiceModel.IClientChannel
+    {
     }
-    
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MM65Client : System.ServiceModel.ClientBase<BLL.BizMM65Service.MM65>, BLL.BizMM65Service.MM65 {
-        
-        public MM65Client() {
+    public partial class MM65Client : System.ServiceModel.ClientBase<BLL.BizMM65Service.MM65>, BLL.BizMM65Service.MM65
+    {
+
+        public MM65Client()
+        {
         }
-        
-        public MM65Client(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+
+        public MM65Client(string endpointConfigurationName) :
+                base(endpointConfigurationName)
+        {
         }
-        
-        public MM65Client(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+
+        public MM65Client(string endpointConfigurationName, string remoteAddress) :
+                base(endpointConfigurationName, remoteAddress)
+        {
         }
-        
-        public MM65Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+
+        public MM65Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(endpointConfigurationName, remoteAddress)
+        {
         }
-        
-        public MM65Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+
+        public MM65Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
         }
-        
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        BLL.BizMM65Service.inputArtworkNumberResponse1 BLL.BizMM65Service.MM65.inputArtworkNumber(BLL.BizMM65Service.inputArtworkNumberRequest request) {
+        BLL.BizMM65Service.inputArtworkNumberResponse1 BLL.BizMM65Service.MM65.inputArtworkNumber(BLL.BizMM65Service.inputArtworkNumberRequest request)
+        {
             return base.Channel.inputArtworkNumber(request);
         }
-        
-        public BLL.BizMM65Service.inputArtworkNumberResponse inputArtworkNumber(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber1) {
+
+        public BLL.BizMM65Service.inputArtworkNumberResponse inputArtworkNumber(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber1)
+        {
             BLL.BizMM65Service.inputArtworkNumberRequest inValue = new BLL.BizMM65Service.inputArtworkNumberRequest();
             inValue.inputArtworkNumber = inputArtworkNumber1;
             BLL.BizMM65Service.inputArtworkNumberResponse1 retVal = ((BLL.BizMM65Service.MM65)(this)).inputArtworkNumber(inValue);
             return retVal.inputArtworkNumberResponse;
         }
-        
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<BLL.BizMM65Service.inputArtworkNumberResponse1> BLL.BizMM65Service.MM65.inputArtworkNumberAsync(BLL.BizMM65Service.inputArtworkNumberRequest request) {
+        System.Threading.Tasks.Task<BLL.BizMM65Service.inputArtworkNumberResponse1> BLL.BizMM65Service.MM65.inputArtworkNumberAsync(BLL.BizMM65Service.inputArtworkNumberRequest request)
+        {
             return base.Channel.inputArtworkNumberAsync(request);
         }
-        
-        public System.Threading.Tasks.Task<BLL.BizMM65Service.inputArtworkNumberResponse1> inputArtworkNumberAsync(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber) {
+
+        public System.Threading.Tasks.Task<BLL.BizMM65Service.inputArtworkNumberResponse1> inputArtworkNumberAsync(BLL.BizMM65Service.inputArtworkNumber inputArtworkNumber)
+        {
             BLL.BizMM65Service.inputArtworkNumberRequest inValue = new BLL.BizMM65Service.inputArtworkNumberRequest();
             inValue.inputArtworkNumber = inputArtworkNumber;
             return ((BLL.BizMM65Service.MM65)(this)).inputArtworkNumberAsync(inValue);

@@ -123,11 +123,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\BizMM65Service\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Connected Services\ContentService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -269,6 +264,7 @@
     <Compile Include="Helpers\TaskForm\QC\SendTo\MKByQCHelper.cs" />
     <Compile Include="Helpers\TaskForm\QC\SendTo\RDByQCHelper.cs" />
     <Compile Include="Helpers\TaskForm\Vendor\VendorHelper.cs" />
+    <Compile Include="MM65Model\Reference.cs" />
     <Compile Include="Services\ADService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\CWSService.cs" />
@@ -337,13 +333,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Authentication\BLL.Authentication.RefreshTokenResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\BizMM65Service\BizTalkServiceInstance.wsdl" />
-    <None Include="Connected Services\BizMM65Service\BLL.BizMM65Service.inputArtworkNumberResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\BizMM65Service\BLL.BizMM65Service.inputArtworkNumberResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ContentService\BLL.ContentService.DownloadContentResponse.datasource">
@@ -846,7 +835,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\Authentication\" />
-    <WCFMetadataStorage Include="Connected Services\BizMM65Service\" />
     <WCFMetadataStorage Include="Connected Services\ContentService\" />
     <WCFMetadataStorage Include="Connected Services\DocumentManagement\" />
     <WCFMetadataStorage Include="Connected Services\MemberService\" />
@@ -901,18 +889,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\TaskForm\Artwork\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\BizMM65Service\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\BizMM65Service\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\BizMM65Service\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
