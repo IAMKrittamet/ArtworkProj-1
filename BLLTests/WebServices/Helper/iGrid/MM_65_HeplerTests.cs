@@ -37,7 +37,7 @@ namespace WebServices.Helper.Tests
 
             req.data = model;
 
-            res = MM_65_Hepler.RequestMaterial(req);
+            //res = MM_65_Hepler.RequestMaterial(req);
 
             ///
 

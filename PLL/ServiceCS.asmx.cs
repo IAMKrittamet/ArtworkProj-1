@@ -149,6 +149,13 @@ namespace PLL
         {
             CNService.OutboundArtwork(string.Format("{0}", Keys));
         }
+
+        [WebMethod]
+        public void SendEmailTest()
+        {
+            //CNService.sendemail("krittamet@iamconsulting.co.th", "", "Test email Body", "Test Email Subject", "");
+            BLL.Services.EmailService.SendTest2("Subject email","kp480300@gmail.com", "krittamet@iamconsulting.co.th","emal body","");
+        }
         [WebMethod]
         public  void SendEmail(string _name)
         {

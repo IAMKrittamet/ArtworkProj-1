@@ -30,6 +30,7 @@ using ClosedXML.Excel;
 using WebServices.Helper;
 using System.Net;
 using System.Collections;
+using Newtonsoft.Json;
 //using CsvHelper;
 //using CsvHelper.Configuration;
 //using Newtonsoft.Json;
@@ -961,7 +962,7 @@ namespace BLL.Services
                 {
                     strQuery = strQuery + " where isnull(inactive,'') <> 'X'";
                 }
-               
+
                 DataTable dt = new DataTable();
                 SqlDataAdapter oAdapter = new SqlDataAdapter(strQuery, con);
                 // Fill the dataset.
@@ -1013,21 +1014,22 @@ namespace BLL.Services
                     strQuery = strQuery + " where MaterialGroup " +
                     "like (case when N'" + ro.data.MaterialGroup + "' <> '' then N'%" + ro.data.MaterialGroup + "%' else MaterialGroup end )";
                     if (ro != null && ro.data != null)
-                    { 
+                    {
                         if (ro.data.IsCheckAuthorize == null)
                         {
                             strQuery = strQuery + " and isnull(inactive,'') <> 'X'";
 
-                        } else
+                        }
+                        else
                         {
                             if (ro.data.IsCheckAuthorize == "X")
                             {
                                 if (string.IsNullOrEmpty(ro.data.Authorize_ChangeMaster)) strQuery = strQuery + " AND isnull(inactive,'') <> 'X'";
                             }
-                            
+
                         }
 
-                     
+
                     }
                 }
                 else
@@ -1255,7 +1257,8 @@ namespace BLL.Services
                     if (ro != null && ro.data != null && ro.data.IsCheckAuthorize == "X")
                     {
                         if (string.IsNullOrEmpty(ro.data.Authorize_ChangeMaster)) strQuery = strQuery + " AND isnull(inactive,'') <> 'X'";
-                    } else
+                    }
+                    else
                     {
                         strQuery = strQuery + " and isnull(inactive,'') <> 'X'";
                     }
@@ -1294,7 +1297,7 @@ namespace BLL.Services
             using (SqlConnection sqlConnection = new SqlConnection(strConn))
             {
                 sqlConnection.Open();
-                
+
                 SqlCommand sqlCommand = new SqlCommand(CommandText, sqlConnection);
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
@@ -1357,13 +1360,13 @@ namespace BLL.Services
 
         //    }
         //}
-        public static string ExportDataSetToExcel2(DataSet ds,string p)
+        public static string ExportDataSetToExcel2(DataSet ds, string p)
         {
             //string AppLocation = "";
             //AppLocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             //AppLocation = AppLocation.Replace("file:\\", "");
             //string file = AppLocation + "\\ExcelFiles\\DataFile" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            string file = @"C:\\temp\\ExcelFiles\\"+p+"\\DataFile" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            string file = @"C:\\temp\\ExcelFiles\\" + p + "\\DataFile" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
             using (XLWorkbook wb = new XLWorkbook())
             {
                 wb.Worksheets.Add(ds.Tables[0]);
@@ -1564,16 +1567,17 @@ namespace BLL.Services
                   "like (case when N'" + ro.data.MaterialGroup + "' <> '' then N'%" + ro.data.MaterialGroup + "%' else MaterialGroup end )" +
                   "and Description = (case when N'" + ro.data.DescriptionText + "' <> '' then N'" + ro.data.DescriptionText + "' else Description end )" +
                   "and MaterialType= (case when N'" + ro.data.MaterialType + "' <> '' then N'" + ro.data.MaterialType + "' else MaterialType end )";
-                    if (ro != null && ro.data != null )
+                    if (ro != null && ro.data != null)
                     {
                         if (ro.data.IsCheckAuthorize == null)
                         {
                             strQuery = strQuery + " and isnull(inactive,'') <> 'X'";
-                        } else
+                        }
+                        else
                         {
                             if (ro.data.IsCheckAuthorize == "X")
                                 if (string.IsNullOrEmpty(ro.data.Authorize_ChangeMaster)) strQuery = strQuery + " AND isnull(inactive,'') <> 'X'";
-                        }                       
+                        }
                     }
                 }
                 else
@@ -1615,7 +1619,7 @@ namespace BLL.Services
             {
                 con.Open();
                 string strQuery = @"select * from MasDirection ";
-                   
+
                 // if (string.IsNullOrEmpty(ro.data.Inactive)) strQuery = strQuery + " and isnull(inactive,'') <> 'X'";
 
                 if (ro != null && ro.data != null)
@@ -1674,7 +1678,7 @@ namespace BLL.Services
                 {
                     strQuery = strQuery + " where isnull(inactive,'') <> 'X'";
                 }
-                
+
                 DataTable dt = new DataTable();
                 SqlDataAdapter oAdapter = new SqlDataAdapter(strQuery, con);
                 // Fill the dataset.
@@ -1777,7 +1781,7 @@ namespace BLL.Services
             {
                 con.Open();
                 string strQuery = @"select *, CASE WHEN isnull(inactive,'') = 'X' THEN '-XXX Do Not Use XXX' ELSE ''END as inactive_text from MasPlantRegisteredNo";
-           
+
 
                 if (ro != null)
                 {
@@ -1852,8 +1856,8 @@ namespace BLL.Services
             using (SqlConnection con = new SqlConnection(strConn))
             {
                 con.Open();
-                
-                
+
+
 
                 string strQuery = @"select * from MasPlantRegisteredNo";
                 if (ro != null)
@@ -2086,236 +2090,238 @@ namespace BLL.Services
             ArtworkObject _artworkObject = inArtwork._artworkObject;
             InboundArtwork[] _itemsArtwork = inArtwork._itemsArtwork;
             try // nueng added try catach
-            { 
-            
-            var _total = ReadItems("select count(*)total from SapMaterial Where statusapp=0 and dmsno='" + _artworkObject.ArtworkNumber + "'");
-            if (Convert.ToInt32(_total.ToString()) > 0)
             {
-                Keys = string.Format("{0}", ReadItems(@"select top 1 DocumentNo from SapMaterial Where statusapp=0 and dmsno='" + _artworkObject.ArtworkNumber + "'"));
-                _Subject = "Artwork number duplicate value";
-                _Body = string.Format("artwork number : {0} <br/>CreateBy : {1}", _artworkObject.ArtworkNumber, Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "fn"));
-                sendemail(Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ";" + Getuser(_artworkObject.PGUserName.Replace(@"THAIUNION\", @""), "email"), GetModulEmail(CNService.Getusermail("PA_Approve")),
-                _Body, _Subject, "");
-            }
-            else
-            {
-                string _Condition = "", _Code = string.Format("{0}", _artworkObject.MaterialNumber) == "" ? _artworkObject.ReferenceMaterial : _artworkObject.MaterialNumber;
-                if (_artworkObject.RecordType == "U" && string.Format("{0}", _artworkObject.MaterialNumber) != "")
-                    _Condition = "7";
-                else if (_artworkObject.RecordType == "I")
+
+                var _total = ReadItems("select count(*)total from SapMaterial Where statusapp=0 and dmsno='" + _artworkObject.ArtworkNumber + "'");
+                if (Convert.ToInt32(_total.ToString()) > 0)
                 {
-                    switch (string.Format("{0}",_artworkObject.ReferenceMaterial))
-                    {
-                        case "":
-                            _Condition = "1";
-                            break;
-
-                        default:
-
-                            _Condition = "4";
-                            break;
-                    }
+                    Keys = string.Format("{0}", ReadItems(@"select top 1 DocumentNo from SapMaterial Where statusapp=0 and dmsno='" + _artworkObject.ArtworkNumber + "'"));
+                    _Subject = "Artwork number duplicate value";
+                    _Body = string.Format("artwork number : {0} <br/>CreateBy : {1}", _artworkObject.ArtworkNumber, Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "fn"));
+                    sendemail(Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ";" + Getuser(_artworkObject.PGUserName.Replace(@"THAIUNION\", @""), "email"), GetModulEmail(CNService.Getusermail("PA_Approve")),
+                    _Body, _Subject, "");
                 }
-                DateTime myDate = DateTime.ParseExact(_artworkObject.Date + " " + _artworkObject.Time + ",531", "yyyyMMdd HH:mm:ss,fff",
-                                              System.Globalization.CultureInfo.InvariantCulture);
-                SqlParameter[] param = { new SqlParameter("@Code", string.Format("{0}",_Code)),
+                else
+                {
+                    string _Condition = "", _Code = string.Format("{0}", _artworkObject.MaterialNumber) == "" ? _artworkObject.ReferenceMaterial : _artworkObject.MaterialNumber;
+                    if (_artworkObject.RecordType == "U" && string.Format("{0}", _artworkObject.MaterialNumber) != "")
+                        _Condition = "7";
+                    else if (_artworkObject.RecordType == "I")
+                    {
+                        switch (string.Format("{0}", _artworkObject.ReferenceMaterial))
+                        {
+                            case "":
+                                _Condition = "1";
+                                break;
+
+                            default:
+
+                                _Condition = "4";
+                                break;
+                        }
+                    }
+                    DateTime myDate = DateTime.ParseExact(_artworkObject.Date + " " + _artworkObject.Time + ",531", "yyyyMMdd HH:mm:ss,fff",
+                                                  System.Globalization.CultureInfo.InvariantCulture);
+                    SqlParameter[] param = { new SqlParameter("@Code", string.Format("{0}",_Code)),
                 new SqlParameter("@Condition",string.Format("{0}",_Condition)),
                 new SqlParameter("@CreateBy",string.Format("{0}",_artworkObject.PAUserName.Replace(@"THAIUNION\", @"")))};
-                var table = executeProcedure("spCreateDocument", param);
-                foreach (DataRow value in table.Rows)
-                {
-                    Keys = string.Format("{0}", value["DocumentNo"]);
+                    var table = executeProcedure("spCreateDocument", param);
+                    foreach (DataRow value in table.Rows)
+                    {
+                        Keys = string.Format("{0}", value["DocumentNo"]);
                         //string datapath = @"\\192.168.1.212\dArtwork" + Keys.ToString() + ".xml";
                         //using (FileStream fs = new FileStream(datapath, FileMode.Create))
                         //{
                         //    new XmlSerializer(typeof(List<InboundArtwork>)).Serialize(fs, _itemsArtwork);
                         //}
                         //att(_artworkObject, Keys);
-                    inArtworkResp.inputArtworkNumberResult = string.Format("{0}", Keys);
-                    ArtworkURL(value["ID"].ToString(), _artworkObject.ArtworkURL, _artworkObject.ReferenceMaterial);
-                    var item = _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_CHANGE_POINT");
-                    using (SqlConnection cn = new SqlConnection(strConn))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("spAssignDocument"))
+                        inArtworkResp.inputArtworkNumberResult = string.Format("{0}", Keys);
+                        ArtworkURL(value["ID"].ToString(), _artworkObject.ArtworkURL, _artworkObject.ReferenceMaterial);
+                        var item = _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_CHANGE_POINT");
+                        using (SqlConnection cn = new SqlConnection(strConn))
                         {
-                            cmd.Connection = cn;
+                            using (SqlCommand cmd = new SqlCommand("spAssignDocument"))
+                            {
+                                cmd.Connection = cn;
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@Assignee", _artworkObject.PGUserName.Replace(@"THAIUNION\", @"").ToString());
+                                cmd.Parameters.AddWithValue("@Id", value["ID"].ToString());
+                                cn.Open();
+                                cmd.ExecuteNonQuery();
+                                cn.Close();
+                            }
+                        }
+                        //string[] userlevel = { "PA", "PG" };
+                        //foreach (string data in userlevel)
+                        //{
+                        using (SqlConnection con = new SqlConnection(strConn))
+                        {
+                            SqlCommand cmd = new SqlCommand();
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@Assignee", _artworkObject.PGUserName.Replace(@"THAIUNION\", @"").ToString());
-                            cmd.Parameters.AddWithValue("@Id", value["ID"].ToString());
+                            cmd.CommandText = "spInsertMultipleRowsInterface";
+                            cmd.Parameters.AddWithValue(@"@Description", string.Format("{0}", _artworkObject.MaterialDescription));
+                            cmd.Parameters.AddWithValue("@Brand", "");
+                            cmd.Parameters.AddWithValue("@Primarysize", "");
+                            cmd.Parameters.AddWithValue("@Primarysize_Id", "");
+                            cmd.Parameters.AddWithValue("@Version", value["Version"].ToString());
+                            cmd.Parameters.AddWithValue("@ChangePoint", string.Format("{0}", item == null ? "N" : item.Value));
+                            cmd.Parameters.AddWithValue("@MaterialGroup", "");
+                            cmd.Parameters.AddWithValue("@CreateBy", string.Format("{0}", curruser()));
+                            cmd.Parameters.AddWithValue("@RequestNo", value["ID"].ToString());
+                            cmd.Parameters.AddWithValue("@userlevel", Getuser(curruser(), "fn"));
+                            cmd.Parameters.AddWithValue("@PackingStyle", "");
+                            cmd.Parameters.AddWithValue("@Packing", "");
+                            cmd.Parameters.AddWithValue("@StyleofPrinting", "");
+                            cmd.Parameters.AddWithValue("@ContainerType", "");
+                            cmd.Parameters.AddWithValue("@LidType", "");
+                            cmd.Parameters.AddWithValue("@TotalColour", "");
+                            cmd.Parameters.AddWithValue("@StatusApp", string.Format("{0}", 0));
+                            cmd.Parameters.AddWithValue("@ProductCode", "");
+                            cmd.Parameters.AddWithValue("@FAOZone", "");
+                            //cmd.Parameters.AddWithValue("@Plant", string.Format("{0}", _artworkObject.Plant.Replace(',', ';')));
+                            cmd.Parameters.AddWithValue("@Plant", string.Format("{0}", _artworkObject.Plant.ToString()));
+                            cmd.Parameters.AddWithValue("@Processcolour", "");
+                            cmd.Parameters.AddWithValue("@PlantRegisteredNo", "");
+                            cmd.Parameters.AddWithValue("@CompanyNameAddress", "");
+                            cmd.Parameters.AddWithValue("@PMScolour", "");
+                            cmd.Parameters.AddWithValue("@Symbol", "");
+                            cmd.Parameters.AddWithValue("@CatchingArea", "");
+                            cmd.Parameters.AddWithValue("@CatchingPeriodDate", "");
+                            cmd.Parameters.AddWithValue("@Grandof", "");
+                            cmd.Parameters.AddWithValue("@Flute", "");
+                            cmd.Parameters.AddWithValue("@Vendor", "");
+                            cmd.Parameters.AddWithValue("@Dimension", "");
+                            cmd.Parameters.AddWithValue("@RSC", "");
+                            cmd.Parameters.AddWithValue("@Accessories", "");
+                            cmd.Parameters.AddWithValue("@PrintingStyleofPrimary", string.Format("{0}", _artworkObject.PrintingStyleofPrimary));
+                            cmd.Parameters.AddWithValue("@PrintingStyleofSecondary", string.Format("{0}", _artworkObject.PrintingStyleofSecondary));
+                            cmd.Parameters.AddWithValue("@CustomerDesign", string.Format("{0}|{1}", _artworkObject.CustomersDesign, _artworkObject.CustomersDesignDetail));
+                            cmd.Parameters.AddWithValue("@CustomerSpec", string.Format("{0}|{1}", _artworkObject.CustomersSpec, _artworkObject.CustomersSpecDetail));
+                            cmd.Parameters.AddWithValue("@CustomerSize", string.Format("{0}|{1}", _artworkObject.CustomersSize, _artworkObject.CustomersSizeDetail));
+                            cmd.Parameters.AddWithValue("@CustomerVendor", string.Format("{0}|{1}", _artworkObject.CustomerNominatesVendor, _artworkObject.CustomerNominatesVendorDetail));
+                            cmd.Parameters.AddWithValue("@CustomerColor", string.Format("{0}|{1}", _artworkObject.CustomerNominatesColorPantone, _artworkObject.CustomerNominatesColorPantoneDetail));
+                            cmd.Parameters.AddWithValue("@CustomerScanable", string.Format("{0}|{1}", _artworkObject.CustomersBarcodeScanable, _artworkObject.CustomersBarcodeScanableDetail));
+                            cmd.Parameters.AddWithValue("@CustomerBarcodeSpec", string.Format("{0}|{1}", _artworkObject.CustomersBarcodeSpec, _artworkObject.CustomersBarcodeSpecDetail));
+                            cmd.Parameters.AddWithValue("@FirstInfoGroup", string.Format("{0}", _artworkObject.FirstInfoGroup));
+                            cmd.Parameters.AddWithValue("@SO", string.Format("{0}", _artworkObject.SONumber));
+                            cmd.Parameters.AddWithValue("@PICMkt", string.Format("{0}", _artworkObject.PICMKT));
+                            cmd.Parameters.AddWithValue("@SOPlant", string.Format("{0}", _artworkObject.SOPlant));
+                            cmd.Parameters.AddWithValue("@Destination", string.Format("{0}", _artworkObject.Destination));
+                            cmd.Parameters.AddWithValue("@Remark", string.Format("{0}", _artworkObject.RemarkNoteofPA));
+                            cmd.Parameters.AddWithValue("@GrossWeight", "");
+                            cmd.Parameters.AddWithValue("@FinalInfoGroup", string.Format("{0}", _artworkObject.FinalInfoGroup));
+                            cmd.Parameters.AddWithValue("@Note", string.Format("{0}", _artworkObject.RemarkNoteofPG));
+                            cmd.Parameters.AddWithValue("@SheetSize", "");
+                            cmd.Parameters.AddWithValue("@Typeof", "");
+                            cmd.Parameters.AddWithValue("@TypeofCarton2", "");
+                            cmd.Parameters.AddWithValue("@DMSNo", string.Format("{0}", _artworkObject.ArtworkNumber));
+
+                            cmd.Parameters.AddWithValue("@TypeofPrimary", "");
+                            cmd.Parameters.AddWithValue("@PrintingSystem", "");
+                            cmd.Parameters.AddWithValue("@Direction", "");
+                            cmd.Parameters.AddWithValue("@RollSheet", "");
+                            cmd.Parameters.AddWithValue("@RequestType", "");
+                            cmd.Parameters.AddWithValue("@PlantAddress", "");
+
+                            cmd.Parameters.AddWithValue("@Fixed_Desc", "");
+                            cmd.Parameters.AddWithValue("@Inactive", "");
+                            cmd.Parameters.AddWithValue("@Catching_Method", "");
+                            cmd.Parameters.AddWithValue("@Scientific_Name", "");
+                            cmd.Parameters.AddWithValue("@Specie", "");
+                            cmd.Parameters.AddWithValue("@SustainMaterial", string.Format("{0}", _artworkObject.SustainMaterial));
+                            cmd.Parameters.AddWithValue("@SustainPlastic", string.Format("{0}", _artworkObject.SustainPlastic));
+                            cmd.Parameters.AddWithValue("@SustainReuseable", string.Format("{0}", _artworkObject.SustainReuseable));
+                            cmd.Parameters.AddWithValue("@SustainRecyclable", string.Format("{0}", _artworkObject.SustainRecyclable));
+                            cmd.Parameters.AddWithValue("@SustainComposatable", string.Format("{0}", _artworkObject.SustainComposatable));
+                            cmd.Parameters.AddWithValue("@SustainCertification", string.Format("{0}", _artworkObject.SustainCertification));
+                            cmd.Parameters.AddWithValue("@SustainCertSourcing", string.Format("{0}", _artworkObject.SustainCertSourcing));
+                            cmd.Parameters.AddWithValue("@SustainOther", string.Format("{0}", _artworkObject.SustainOther));
+                            cmd.Parameters.AddWithValue("@SusSecondaryPKGWeight", string.Format("{0}", _artworkObject.SusSecondaryPKGWeight));
+                            cmd.Parameters.AddWithValue("@SusRecycledContent", string.Format("{0}", _artworkObject.SusRecycledContent));
+
+                            var jsonData = JsonConvert.SerializeObject(cmd.Parameters);
+                            cmd.Connection = con;
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                        }
+                        //}
+                        foreach (var p in _itemsArtwork)
+                        {
+                            List<string> listsymbol = new List<string>();
+                            string charac = p.Characteristic.ToString();
+                            if (charac.ToString().Contains("ZPKG_SEC_PRIMARY_SIZE"))
+                            {
+                                string _LidType = "", _ContainerType = "";
+                                var items = _itemsArtwork.Where(a => (a.Characteristic == "ZPKG_SEC_CONTAINER_TYPE" || a.Characteristic == "ZPKG_SEC_LID_TYPE"));
+                                foreach (var r in items)
+                                {
+                                    if (r.Characteristic.ToString() == "ZPKG_SEC_LID_TYPE")
+                                        _LidType = string.Format("{0}", r.Value);
+                                    if (r.Characteristic.ToString() == "ZPKG_SEC_CONTAINER_TYPE")
+                                        _ContainerType = string.Format("{0}", r.Value);
+                                }
+                                p.Value = ReadItems(@"SELECT top 1 code from MasPrimarySize a where isnull(Inactive,'')<>'X' and UPPER(a.Description)=N'" + p.Value.ToString().ToUpper()
+                                    + "' and UPPER(a.ContainerType)=N'" + _ContainerType.ToUpper() + "' and (a.DescriptionType) =N'" + _LidType.ToUpper() + "'");
+                            }
+                            if (charac.ToString().Contains("ZPKG_SEC_SYMBOL"))
+                            {
+
+
+                                var items = _itemsArtwork.Where(a => (a.Characteristic == "ZPKG_SEC_SYMBOL"));
+                                foreach (var r in items)
+                                {
+                                    listsymbol.Add(string.Format("{0}", r.Value));
+
+                                }
+                            }
+                            if (charac.ToString().Contains("ZPKG_SEC_ACCESSORIES"))
+                            {
+                                p.Value = Insert(p.Value.ToString());
+                            }
+                            //Initialize SQL Server Connection
+                            SqlConnection cn = new SqlConnection(strConn);
+                            SqlCommand cmd = new SqlCommand("spUpdateSapMaterial", cn);
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.AddWithValue("@Description", string.Format("{0}", p.Description));
+                            //cmd.Parameters.AddWithValue("@ArtworkNumber", string.Format("{0}", _artworkObject.ArtworkNumber));
+                            //cmd.Parameters.AddWithValue("@Date", string.Format("{0}", item.Date));
+                            cmd.Parameters.AddWithValue("@Value", string.Format("{0}", charac.ToString().Contains("ZPKG_SEC_SYMBOL") ? String.Join(";", listsymbol.ToArray()) : p.Value));
+                            cmd.Parameters.AddWithValue("@Group", string.Format("{0}", _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_GROUP").Value));
+                            cmd.Parameters.AddWithValue("@Characteristic", string.Format("{0}", charac));
+                            cmd.Parameters.AddWithValue("@Keys", string.Format("{0}", value["ID"]));
+                            // Running the query.
                             cn.Open();
                             cmd.ExecuteNonQuery();
                             cn.Close();
                         }
-                    }
-                    //string[] userlevel = { "PA", "PG" };
-                    //foreach (string data in userlevel)
-                    //{
-                    using (SqlConnection con = new SqlConnection(strConn))
-                    {
-                        SqlCommand cmd = new SqlCommand();
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "spInsertMultipleRowsInterface";
-                        cmd.Parameters.AddWithValue(@"@Description", string.Format("{0}", _artworkObject.MaterialDescription));
-                        cmd.Parameters.AddWithValue("@Brand", "");
-                        cmd.Parameters.AddWithValue("@Primarysize", "");
-                        cmd.Parameters.AddWithValue("@Primarysize_Id", "");
-                        cmd.Parameters.AddWithValue("@Version", value["Version"].ToString());
-                        cmd.Parameters.AddWithValue("@ChangePoint", string.Format("{0}", item == null ? "N" : item.Value));
-                        cmd.Parameters.AddWithValue("@MaterialGroup", "");
-                        cmd.Parameters.AddWithValue("@CreateBy", string.Format("{0}", curruser()));
-                        cmd.Parameters.AddWithValue("@RequestNo", value["ID"].ToString());
-                        cmd.Parameters.AddWithValue("@userlevel", Getuser(curruser(), "fn"));
-                        cmd.Parameters.AddWithValue("@PackingStyle", "");
-                        cmd.Parameters.AddWithValue("@Packing", "");
-                        cmd.Parameters.AddWithValue("@StyleofPrinting", "");
-                        cmd.Parameters.AddWithValue("@ContainerType", "");
-                        cmd.Parameters.AddWithValue("@LidType", "");
-                        cmd.Parameters.AddWithValue("@TotalColour", "");
-                        cmd.Parameters.AddWithValue("@StatusApp", string.Format("{0}", 0));
-                        cmd.Parameters.AddWithValue("@ProductCode", "");
-                        cmd.Parameters.AddWithValue("@FAOZone", "");
-                        //cmd.Parameters.AddWithValue("@Plant", string.Format("{0}", _artworkObject.Plant.Replace(',', ';')));
-                        cmd.Parameters.AddWithValue("@Plant", string.Format("{0}", _artworkObject.Plant.ToString()));
-                        cmd.Parameters.AddWithValue("@Processcolour", "");
-                        cmd.Parameters.AddWithValue("@PlantRegisteredNo", "");
-                        cmd.Parameters.AddWithValue("@CompanyNameAddress", "");
-                        cmd.Parameters.AddWithValue("@PMScolour", "");
-                        cmd.Parameters.AddWithValue("@Symbol", "");
-                        cmd.Parameters.AddWithValue("@CatchingArea", "");
-                        cmd.Parameters.AddWithValue("@CatchingPeriodDate", "");
-                        cmd.Parameters.AddWithValue("@Grandof", "");
-                        cmd.Parameters.AddWithValue("@Flute", "");
-                        cmd.Parameters.AddWithValue("@Vendor", "");
-                        cmd.Parameters.AddWithValue("@Dimension", "");
-                        cmd.Parameters.AddWithValue("@RSC", "");
-                        cmd.Parameters.AddWithValue("@Accessories", "");
-                        cmd.Parameters.AddWithValue("@PrintingStyleofPrimary", string.Format("{0}", _artworkObject.PrintingStyleofPrimary));
-                        cmd.Parameters.AddWithValue("@PrintingStyleofSecondary", string.Format("{0}", _artworkObject.PrintingStyleofSecondary));
-                        cmd.Parameters.AddWithValue("@CustomerDesign", string.Format("{0}|{1}", _artworkObject.CustomersDesign, _artworkObject.CustomersDesignDetail));
-                        cmd.Parameters.AddWithValue("@CustomerSpec", string.Format("{0}|{1}", _artworkObject.CustomersSpec, _artworkObject.CustomersSpecDetail));
-                        cmd.Parameters.AddWithValue("@CustomerSize", string.Format("{0}|{1}", _artworkObject.CustomersSize, _artworkObject.CustomersSizeDetail));
-                        cmd.Parameters.AddWithValue("@CustomerVendor", string.Format("{0}|{1}", _artworkObject.CustomerNominatesVendor, _artworkObject.CustomerNominatesVendorDetail));
-                        cmd.Parameters.AddWithValue("@CustomerColor", string.Format("{0}|{1}", _artworkObject.CustomerNominatesColorPantone, _artworkObject.CustomerNominatesColorPantoneDetail));
-                        cmd.Parameters.AddWithValue("@CustomerScanable", string.Format("{0}|{1}", _artworkObject.CustomersBarcodeScanable, _artworkObject.CustomersBarcodeScanableDetail));
-                        cmd.Parameters.AddWithValue("@CustomerBarcodeSpec", string.Format("{0}|{1}", _artworkObject.CustomersBarcodeSpec, _artworkObject.CustomersBarcodeSpecDetail));
-                        cmd.Parameters.AddWithValue("@FirstInfoGroup", string.Format("{0}", _artworkObject.FirstInfoGroup));
-                        cmd.Parameters.AddWithValue("@SO", string.Format("{0}", _artworkObject.SONumber));
-                        cmd.Parameters.AddWithValue("@PICMkt", string.Format("{0}", _artworkObject.PICMKT));
-                        cmd.Parameters.AddWithValue("@SOPlant", string.Format("{0}", _artworkObject.SOPlant));
-                        cmd.Parameters.AddWithValue("@Destination", string.Format("{0}", _artworkObject.Destination));
-                        cmd.Parameters.AddWithValue("@Remark", string.Format("{0}", _artworkObject.RemarkNoteofPA));
-                        cmd.Parameters.AddWithValue("@GrossWeight", "");
-                        cmd.Parameters.AddWithValue("@FinalInfoGroup", string.Format("{0}", _artworkObject.FinalInfoGroup));
-                        cmd.Parameters.AddWithValue("@Note", string.Format("{0}", _artworkObject.RemarkNoteofPG));
-                        cmd.Parameters.AddWithValue("@SheetSize", "");
-                        cmd.Parameters.AddWithValue("@Typeof", "");
-                        cmd.Parameters.AddWithValue("@TypeofCarton2", "");
-                        cmd.Parameters.AddWithValue("@DMSNo", string.Format("{0}", _artworkObject.ArtworkNumber));
-
-                        cmd.Parameters.AddWithValue("@TypeofPrimary", "");
-                        cmd.Parameters.AddWithValue("@PrintingSystem", "");
-                        cmd.Parameters.AddWithValue("@Direction", "");
-                        cmd.Parameters.AddWithValue("@RollSheet", "");
-                        cmd.Parameters.AddWithValue("@RequestType", "");
-                        cmd.Parameters.AddWithValue("@PlantAddress", "");
-
-                        cmd.Parameters.AddWithValue("@Fixed_Desc", "");
-                        cmd.Parameters.AddWithValue("@Inactive", "");
-                        cmd.Parameters.AddWithValue("@Catching_Method", "");
-                        cmd.Parameters.AddWithValue("@Scientific_Name", "");
-                        cmd.Parameters.AddWithValue("@Specie", "");
-                        cmd.Parameters.AddWithValue("@SustainMaterial", string.Format("{0}", _artworkObject.SustainMaterial));
-                        cmd.Parameters.AddWithValue("@SustainPlastic", string.Format("{0}", _artworkObject.SustainPlastic));
-                        cmd.Parameters.AddWithValue("@SustainReuseable", string.Format("{0}", _artworkObject.SustainReuseable));
-                        cmd.Parameters.AddWithValue("@SustainRecyclable", string.Format("{0}", _artworkObject.SustainRecyclable));
-                        cmd.Parameters.AddWithValue("@SustainComposatable", string.Format("{0}", _artworkObject.SustainComposatable));
-                        cmd.Parameters.AddWithValue("@SustainCertification", string.Format("{0}", _artworkObject.SustainCertification));
-                        cmd.Parameters.AddWithValue("@SustainCertSourcing", string.Format("{0}", _artworkObject.SustainCertSourcing));
-                        cmd.Parameters.AddWithValue("@SustainOther", string.Format("{0}", _artworkObject.SustainOther));
-                        cmd.Parameters.AddWithValue("@SusSecondaryPKGWeight", string.Format("{0}", _artworkObject.SusSecondaryPKGWeight));
-                        cmd.Parameters.AddWithValue("@SusRecycledContent", string.Format("{0}", _artworkObject.SusRecycledContent));
-
-                        cmd.Connection = con;
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                    //}
-                    foreach (var p in _itemsArtwork)
-                    {
-                        List<string> listsymbol = new List<string>();
-                        string charac = p.Characteristic.ToString();
-                        if (charac.ToString().Contains("ZPKG_SEC_PRIMARY_SIZE"))
+                        using (SqlConnection CN = new SqlConnection(strConn))
                         {
-                            string _LidType = "", _ContainerType = "";
-                            var items = _itemsArtwork.Where(a => (a.Characteristic == "ZPKG_SEC_CONTAINER_TYPE" || a.Characteristic == "ZPKG_SEC_LID_TYPE"));
-                            foreach (var r in items)
-                            {
-                                if (r.Characteristic.ToString() == "ZPKG_SEC_LID_TYPE")
-                                    _LidType = string.Format("{0}", r.Value);
-                                if (r.Characteristic.ToString() == "ZPKG_SEC_CONTAINER_TYPE")
-                                    _ContainerType = string.Format("{0}", r.Value);
-                            }
-                            p.Value = ReadItems(@"SELECT top 1 code from MasPrimarySize a where isnull(Inactive,'')<>'X' and UPPER(a.Description)=N'" + p.Value.ToString().ToUpper()
-                                + "' and UPPER(a.ContainerType)=N'" + _ContainerType.ToUpper() + "' and (a.DescriptionType) =N'" + _LidType.ToUpper() + "'");
+                            string qry = "spUpdateArtwork";
+                            SqlCommand SqlCom = new SqlCommand(qry, CN);
+                            SqlCom.CommandType = CommandType.StoredProcedure;
+                            SqlCom.Parameters.Add(new SqlParameter("@Keys", value["ID"].ToString()));
+                            CN.Open();
+                            SqlCom.ExecuteNonQuery();
+                            CN.Close();
                         }
-                        if (charac.ToString().Contains("ZPKG_SEC_SYMBOL"))
-                        {
 
-
-                            var items = _itemsArtwork.Where(a => (a.Characteristic == "ZPKG_SEC_SYMBOL"));
-                            foreach (var r in items)
-                            {
-                                listsymbol.Add(string.Format("{0}", r.Value));
-
-                            }
-                        }
-                        if (charac.ToString().Contains("ZPKG_SEC_ACCESSORIES"))
-                        {
-                            p.Value = Insert(p.Value.ToString());
-                        }
-                        //Initialize SQL Server Connection
-                        SqlConnection cn = new SqlConnection(strConn);
-                        SqlCommand cmd = new SqlCommand("spUpdateSapMaterial", cn);
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.AddWithValue("@Description", string.Format("{0}", p.Description));
-                        //cmd.Parameters.AddWithValue("@ArtworkNumber", string.Format("{0}", _artworkObject.ArtworkNumber));
-                        //cmd.Parameters.AddWithValue("@Date", string.Format("{0}", item.Date));
-                        cmd.Parameters.AddWithValue("@Value", string.Format("{0}", charac.ToString().Contains("ZPKG_SEC_SYMBOL") ? String.Join(";", listsymbol.ToArray()) : p.Value));
-                        cmd.Parameters.AddWithValue("@Group", string.Format("{0}", _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_GROUP").Value));
-                        cmd.Parameters.AddWithValue("@Characteristic", string.Format("{0}", charac));
-                        cmd.Parameters.AddWithValue("@Keys", string.Format("{0}", value["ID"]));
-                        // Running the query.
-                        cn.Open();
-                        cmd.ExecuteNonQuery();
-                        cn.Close();
+                        _MailTo = Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ';' + Getuser(_artworkObject.PGUserName.Replace(@"THAIUNION\", @""), "email");
+                        _Subject = string.Format("system iGrid Request No.:{0}", value["DocumentNo"]);
+                        _Body = @"integration between iGrid and Artwork system (xECM)<br/> CreateBy : "
+                        + Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "fullname") + " <br/> Material Group : " + _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_GROUP").Value;
                     }
-                    using (SqlConnection CN = new SqlConnection(strConn))
-                    {
-                        string qry = "spUpdateArtwork";
-                        SqlCommand SqlCom = new SqlCommand(qry, CN);
-                        SqlCom.CommandType = CommandType.StoredProcedure;
-                        SqlCom.Parameters.Add(new SqlParameter("@Keys", value["ID"].ToString()));
-                        CN.Open();
-                        SqlCom.ExecuteNonQuery();
-                        CN.Close();
-                    }
-
-                    _MailTo = Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ';' + Getuser(_artworkObject.PGUserName.Replace(@"THAIUNION\", @""), "email");
-                    _Subject = string.Format("system iGrid Request No.:{0}", value["DocumentNo"]);
-                    _Body = @"integration between iGrid and Artwork system (xECM)<br/> CreateBy : "
-                    + Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "fullname") + " <br/> Material Group : " + _itemsArtwork.FirstOrDefault(a => a.Characteristic == "ZPKG_SEC_GROUP").Value;
+                    sendemail(_MailTo, GetModulEmail(CNService.Getusermail("PA_Approve")), _Body, _Subject, "");
                 }
-                sendemail(_MailTo, GetModulEmail(CNService.Getusermail("PA_Approve")), _Body, _Subject, "");
-            }
                 return inArtworkResp;
             }
-            catch (Exception ex){
-                sendemail(Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ";voravut.somboornpong@thaiunion.com;pornnicha.thanarak@thaiunion.com", "", string.Format("{0}", ex), string.Format ("[i-Grid] Unable to add data to i-Grid job {0} & aw {1} ", Keys.ToString() , _artworkObject.ArtworkNumber), "");
+            catch (Exception ex)
+            {
+                sendemail(Getuser(_artworkObject.PAUserName.Replace(@"THAIUNION\", @""), "email") + ";voravut.somboornpong@thaiunion.com;pornnicha.thanarak@thaiunion.com", "", string.Format("{0}", ex), string.Format("[i-Grid] Unable to add data to i-Grid job {0} & aw {1} ", Keys.ToString(), _artworkObject.ArtworkNumber), "");
                 return inArtworkResp;
             }
-            
+
         }
         public static string Insert(string value)
         {
@@ -2339,7 +2345,8 @@ namespace BLL.Services
             return words[n].ToString();
         }
 
-        public static string Getusermail(String fn) {
+        public static string Getusermail(String fn)
+        {
             List<string> list = new List<string>();
             string strSQL = "select user_name from ulogin Where (select top 1 value from dbo.FNC_SPLIT(fn,',') where value ='" + fn + "') ='" + fn + "' and userlevel='0'";
 
@@ -2449,11 +2456,11 @@ namespace BLL.Services
                 con.Open();
                 if (ro == null)
                     return new List<PrintingSystem_MODEL>();
-                
+
                 string materialgroup = ro.data.MaterialGroup == null ? "" : ro.data.MaterialGroup;
                 string strQuery = string.Format("select *, CASE WHEN isnull(inactive,'') = 'X' THEN '-XXX Do Not Use XXX' ELSE ''END as inactive_text from MasPrintingSystem where MaterialGroup " +
-                    "like (case when N'{0}' <> '' then N'%{0}%' else MaterialGroup end )", materialgroup) ;
-                    
+                    "like (case when N'{0}' <> '' then N'%{0}%' else MaterialGroup end )", materialgroup);
+
 
                 if (ro != null)
                 {
@@ -2727,12 +2734,14 @@ namespace BLL.Services
                         }).ToList();
             }
         }
-        public static string GetApproveLevel(string keys) {
+        public static string GetApproveLevel(string keys)
+        {
             string Value = @"select value =STUFF(((SELECT DISTINCT  ',' + A.fn 
                                          FROM      ulogin A
                                          WHERE A.[user_name] = '" + curruser() + "' FOR XML PATH(''))), 1, 1, '')";
             //string Value = @"select * from(select value from dbo.FNC_SPLIT((SELECT fn from ulogin where [user_name]='" + curruser() + "'),','))#a";
-            foreach (DataRow rs in builditems(Value).Rows) {
+            foreach (DataRow rs in builditems(Value).Rows)
+            {
                 //foreach (DataRow rs2 in builditems(@"select fn from TransApprove where MatDoc=" + keys + " and fn='" + rs["value"] + "' and StatusApp in (0,2)").Rows) {
                 return string.Format("{0}", rs["value"]);
                 //}
@@ -2788,6 +2797,8 @@ namespace BLL.Services
                     msg.Attachments.Add(new Attachment(_Attachments));
                 }
                 msg.IsBodyHtml = true;
+
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                 //smtp.Host = "192.168.1.38";
                 smtp.Host = string.Format("{0}", ConfigurationManager.AppSettings["SMTPServer"]);
                 smtp.Port = 25;
@@ -2799,7 +2810,7 @@ namespace BLL.Services
 
             }
 
-             
+
         }
         public static string GetActiveBy(String Value)
         {
@@ -2890,7 +2901,8 @@ namespace BLL.Services
             }
             return checkpath;
         }
-        public static string GetModulEmail(String user_name) {
+        public static string GetModulEmail(String user_name)
+        {
             List<string> list = new List<string>();
             string Str_X = "X";
             string[] celda = user_name.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -2965,7 +2977,7 @@ namespace BLL.Services
                 con.Close();
             }
         }
-        public static void savechangeresult(string Name,string Result,string Matdoc,String Activeby)
+        public static void savechangeresult(string Name, string Result, string Matdoc, String Activeby)
         {
 
             using (SqlConnection con = new SqlConnection(strConn))
@@ -3002,10 +3014,10 @@ namespace BLL.Services
         {
             // created by aof
             DataTable table = new DataTable();
-            if (param.data.Id > 0  )
+            if (param.data.Id > 0)
             {
 
-                executeScript("Update SapMaterial set FinalInfoGroup = N'"+ param.data.FinalInfoGroup +"' Where Id=" + param.data.Id);
+                executeScript("Update SapMaterial set FinalInfoGroup = N'" + param.data.FinalInfoGroup + "' Where Id=" + param.data.Id);
                 if (param.data.IsSaveCompleteInfoGroup == "X")
                 {
                     SqlParameter[] p = { new SqlParameter("@Id", param.data.Id),
@@ -3026,16 +3038,18 @@ namespace BLL.Services
                         sendemail(MailTo, GetModulEmail(string.Format("{0}", CNService.curruser())), "SEC PKG Info already saved PKG Material no.: " + str_material + "<br /><br />E-Mail Material Info already saved" +
                                                         "<br/>Comment : " + param.data.Remark, Subject, "");
                     }
-                }else
+                }
+                else
                     table = builditems(@"select * from sapmaterial where id=" + string.Format("{0}", param.data.Id));
-                
+
             }
             return table;
         }
         public static DataTable updateArtworkNumber(SapMaterial_REQUEST param)
         {
             DataTable table = new DataTable();
-            if (param.data.Id == 0) {
+            if (param.data.Id == 0)
+            {
                 SqlParameter[] p = { new SqlParameter("@Code", string.Format("{0}", param.data.Material == "" || param.data.Material == null ? param.data.ReferenceMaterial : param.data.Material)),
                 new SqlParameter("@Condition",string.Format("{0}",param.data.Condition=="" || param.data.Condition == null ? "1" : param.data.Condition)),
                 new SqlParameter("@CreateBy",string.Format("{0}",curruser()))};
@@ -3044,11 +3058,11 @@ namespace BLL.Services
             else
             {
                 table = builditems(@"select * from sapmaterial where id=" + string.Format("{0}", param.data.Id));
-            
-            foreach (DataRow dr in table.Rows)
-            {
-                param.data.Id = Convert.ToInt32(dr["ID"]);
-                param.data.DocumentNo = string.Format("{0}", dr["DocumentNo"]);
+
+                foreach (DataRow dr in table.Rows)
+                {
+                    param.data.Id = Convert.ToInt32(dr["ID"]);
+                    param.data.DocumentNo = string.Format("{0}", dr["DocumentNo"]);
                     using (SqlConnection con = new SqlConnection(strConn))
                     {
                         SqlCommand cmd = new SqlCommand();
@@ -3149,7 +3163,7 @@ namespace BLL.Services
 
                     }
                 }
-               
+
             }
             return table;
         }
@@ -3299,7 +3313,7 @@ namespace BLL.Services
                 string dtEnd = DateTime.Now.ToString();
                 //Context.Response.Write(JsonConvert.SerializeObject(resp));
                 //DirectoryInfo dir = new DirectoryInfo(@"\\SERVER\Data\");
-                
+
                 string datapath = @"\\192.168.1.170\FileTest\iGrid_Model" + Keys.ToString() + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml";
                 FileInfo myFile = new FileInfo(datapath);
                 using (FileStream fs = new FileStream(datapath, FileMode.Create))
@@ -3346,7 +3360,8 @@ namespace BLL.Services
                             //where = where + where == ""? " isnull(inactive,'') <> 'X'" :  " and isnull(inactive,'') <> 'X'";   commmeted by aof
                             if (where != "") where = where + " and ";
                             where = where + "isnull(inactive,'') <> 'X'";
-                        } else
+                        }
+                        else
                         {
                             if (ro.data.IsCheckAuthorize == "X")
                             {
@@ -3385,7 +3400,7 @@ namespace BLL.Services
                         }).ToList();
             }
         }
-        public static List<Attachment_MODEL> GetAttachment(Attachment_REQUEST param )
+        public static List<Attachment_MODEL> GetAttachment(Attachment_REQUEST param)
         {
             List<Attachment_MODEL> listAttachment = new List<Attachment_MODEL>();
             using (SqlConnection con = new SqlConnection(strConn))
@@ -3434,13 +3449,13 @@ namespace BLL.Services
                                 if (string.IsNullOrEmpty(ro.data.Authorize_ChangeMaster)) strQuery = strQuery + " where isnull(inactive,'') <> 'X'";
                         }
 
-                    }            
+                    }
                 }
                 else
                 {
                     strQuery = strQuery + " where isnull(inactive,'') <> 'X'";
                 }
-                   
+
 
                 DataTable dt = new DataTable();
                 SqlDataAdapter oAdapter = new SqlDataAdapter(strQuery, con);
@@ -3448,15 +3463,15 @@ namespace BLL.Services
                 oAdapter.Fill(dt);
                 con.Close();
 
-                var list =  (from DataRow dr in dt.Rows
-                        select new TypeofPrimary_MODEL()
-                        {
-                            ID = string.Format("{0}", dr["Id"]),
-                            DISPLAY_TXT = dr["Description"].ToString(),// + dr["inactive_text"].ToString(),
-                            //MaterialGroup = dr["MaterialGroup"].ToString(),
-                            Inactive =string.Format("{0}", dr["Inactive"])
+                var list = (from DataRow dr in dt.Rows
+                            select new TypeofPrimary_MODEL()
+                            {
+                                ID = string.Format("{0}", dr["Id"]),
+                                DISPLAY_TXT = dr["Description"].ToString(),// + dr["inactive_text"].ToString(),
+                                                                           //MaterialGroup = dr["MaterialGroup"].ToString(),
+                                Inactive = string.Format("{0}", dr["Inactive"])
 
-                        }).ToList();
+                            }).ToList();
 
                 if (ro != null && ro.data != null && !string.IsNullOrEmpty(ro.data.DISPLAY_TXT))
                 {
@@ -3515,15 +3530,15 @@ namespace BLL.Services
                 con.Close();
 
                 var data = (from DataRow dr in dt.Rows
-                        select new Brand_MODEL()
-                        {
-                            ID = string.Format("{0}", dr["Id"]),
-                            DISPLAY_TXT = string.Format("{0}", dr["Id"]) + "," + dr["Description"].ToString(),// + dr["inactive_text"].ToString(),
-                            Inactive = string.Format("{0}", dr["Inactive"])
-                        }).ToList();
+                            select new Brand_MODEL()
+                            {
+                                ID = string.Format("{0}", dr["Id"]),
+                                DISPLAY_TXT = string.Format("{0}", dr["Id"]) + "," + dr["Description"].ToString(),// + dr["inactive_text"].ToString(),
+                                Inactive = string.Format("{0}", dr["Inactive"])
+                            }).ToList();
 
 
-              
+
 
 
                 if (ro != null && ro.data != null && !string.IsNullOrEmpty(ro.data.DISPLAY_TXT))
@@ -3578,7 +3593,7 @@ namespace BLL.Services
 
                     }
 
-                   
+
                 }
 
                 if (whereQuery != "")
@@ -3592,7 +3607,7 @@ namespace BLL.Services
                         where = whereQuery;
                     }
                 }
-           
+
 
                 if (where != "")
                 {
@@ -3605,8 +3620,8 @@ namespace BLL.Services
                 // Fill the dataset.
                 oAdapter.Fill(dt);
                 con.Close();
-                    
-                
+
+
                 con.Close();
                 return (from DataRow dr in dt.Rows
                         select new PrimarySize_MODEL()
@@ -3637,7 +3652,7 @@ namespace BLL.Services
                 con.Open();
                 string strQuery = @"select top 1 url from TransArtworkURL where matdoc='" + matdoc + "'";
 
-  
+
 
                 DataTable dt = new DataTable();
                 SqlDataAdapter oAdapter = new SqlDataAdapter(strQuery, con);
@@ -3652,7 +3667,7 @@ namespace BLL.Services
                 }
 
                 con.Close();
-       
+
             }
 
 
@@ -3675,94 +3690,94 @@ namespace BLL.Services
                 oAdapter.Fill(dt);
                 con.Close();
                 return (from DataRow dr in dt.Rows
-                 select new SapMaterial_MODEL()
-                 {  
-                     Id = Convert.ToInt32(dr["ID"]),
-                     DocumentNo = dr["DocumentNo"].ToString(),
-                     Material = dr["Material"].ToString(),
-                     Description = dr["Description"].ToString(),
-                     Brand = dr["Brand"].ToString(),
-                     Brand_TXT = dr["Brand_txt"].ToString(),
-                     PrimarySize = string.Format("{0}", dr["PrimarySize"]),
-                     Version = dr["Version"].ToString(),
-                     ChangePoint = dr["ChangePoint"].ToString(),
-                     CreateBy = dr["CreateBy"].ToString(),
-                     MaterialGroup = string.Format("{0}", dr["MaterialGroup"]),
-                     MaterialGroup_TXT = string.Format("{0}", dr["MaterialGroup_txt"]),
-                     ReferenceMaterial = string.Format("{0}",dr["ReferenceMaterial"]),
-                     SusRecycledContent = string.Format("{0}",dr["SusRecycledContent"]),
-                     SusSecondaryPKGWeight = string.Format("{0}",dr["SusSecondaryPKGWeight"]),
-                     SustainOther = string.Format("{0}",dr["SustainOther"]),
-                     SustainCertSourcing = string.Format("{0}",dr["SustainCertSourcing"]),
-                     SustainCertification=string.Format("{0}",dr["SustainCertification"]),
-                     SustainComposatable = string.Format("{0}",dr["SustainComposatable"]),
-                     SustainRecyclable = string.Format("{0}", dr["SustainRecyclable"]),
-                     SustainReuseable = string.Format("{0}", dr["SustainReuseable"]),
-                     SustainPlastic = string.Format("{0}", dr["SustainPlastic"]),
-                     SustainMaterial = string.Format("{0}",dr["SustainMaterial"]),
-                     Specie = string.Format("{0}",dr["Specie"]),
-                     Scientific_Name = string.Format("{0}",dr["Scientific_Name"]),
-                     Catching_Method = string.Format("{0}",dr["Catching_Method"]),
-                     Inactive = string.Format("{0}",dr["Inactive"]),
-                     Fixed_Desc = string.Format("{0}",dr["Fixed_Desc"]),
-                     StatusApp = string.Format("{0}", dr["StatusApp"]),
-                     SheetSize=string.Format("{0}", dr["SheetSize"]),
-                     Assignee = string.Format("{0}", dr["Assignee"]),
-                     PackingStyle=string.Format("{0}", dr["PackingStyle"]),
-                     Packing = string.Format("{0}", dr["Packing"]),
-                     StyleofPrinting=string.Format("{0}", dr["StyleofPrinting"]),
-                     ContainerType = string.Format("{0}",dr["ContainerType"]),
-                     LidType=string.Format("{0}",dr["LidType"]),
-                     Condition=string.Format("{0}",dr["Condition"]),
-                     ProductCode=string.Format("{0}",dr["ProductCode"]),
-                     FAOZone= string.Format("{0}",dr["FAOZone"]),
-                     Plant=string.Format("{0}",dr["Plant"]),
-                     Totalcolour=string.Format("{0}",dr["Totalcolour"]),
-                     Processcolour=string.Format("{0}",dr["Processcolour"]),
-                     PlantRegisteredNo=string.Format("{0}",dr["PlantRegisteredNo"]),
-                     CompanyNameAddress=string.Format("{0}",dr["CompanyNameAddress"]),
-                     PMScolour=string.Format("{0}",dr["PMScolour"]),
-                     Symbol=string.Format("{0}",dr["Symbol"]),
-                     CatchingArea=string.Format("{0}",dr["CatchingArea"]),
-                     CatchingPeriodDate=string.Format("{0}",dr["CatchingPeriodDate"]),
-                     Grandof=string.Format("{0}",dr["Grandof"]),
-                     Flute=string.Format("{0}",dr["Flute"]),
-                     Vendor=string.Format("{0}",dr["Vendor"]),
-                     Dimension=string.Format("{0}",dr["Dimension"]),
-                     RSC=string.Format("{0}",dr["RSC"]),
-                     Accessories=string.Format("{0}",dr["Accessories"]),
-                     PrintingStyleofPrimary=string.Format("{0}",dr["PrintingStyleofPrimary"]),
-                     PrintingStyleofSecondary=string.Format("{0}",dr["PrintingStyleofSecondary"]),
-                     CustomerDesign=string.Format("{0}",dr["CustomerDesign"]),
-                     CustomerSpec=string.Format("{0}",dr["CustomerSpec"]),
-                     CustomerSize=string.Format("{0}",dr["CustomerSize"]),
-                     CustomerVendor=string.Format("{0}",dr["CustomerVendor"]),
-                     CustomerColor=string.Format("{0}",dr["CustomerColor"]),
-                     CustomerScanable=string.Format("{0}",dr["CustomerScanable"]),
-                     CustomerBarcodeSpec=string.Format("{0}",dr["CustomerBarcodeSpec"]),
-                     FirstInfoGroup=string.Format("{0}",dr["FirstInfoGroup"]),
-                     SO=string.Format("{0}",dr["SO"]),
-                     PICMkt =string.Format("{0}",dr["PICMkt"]),
-                     SOPlant=string.Format("{0}",dr["SOPlant"]),
-                     Destination=string.Format("{0}",dr["Destination"]),
-                     Remark=string.Format("{0}",dr["Remark"]),
-                     GrossWeight=string.Format("{0}",dr["GrossWeight"]),
-                     FinalInfoGroup=string.Format("{0}",dr["FinalInfoGroup"]),
-                     Note=string.Format("{0}",dr["Note"]),
-                     Assignee_TXT = string.Format("{0}",dr["Assignee_txt"]),
-                     //Typeof_ID = Convert.ToInt32(dr["Typeof_ID"]),
-                     Typeof = string.Format("{0}",dr["Typeof"]),
-                     TypeofCarton2=string.Format("{0}",dr["TypeofCarton2"]),
-                     DMSNo=string.Format("{0}",dr["DMSNo"]),
-                     TypeofPrimary=string.Format("{0}",dr["TypeofPrimary"]),
-                     PrintingSystem=string.Format("{0}",dr["PrintingSystem"]),
-                     Direction=string.Format("{0}",dr["Direction"]),
-                     RollSheet=string.Format("{0}",dr["RollSheet"]),
-                     RequestType=string.Format("{0}",dr["RequestType"]),
-                     PlantAddress=string.Format("{0}",dr["PlantAddress"]),
-                     Refnumber=string.Format("{0}",dr["Refnumber"]),
-                     Extended_Plant=string.Format("{0}",dr["Extended_Plant"])
-                 }).ToList();
+                        select new SapMaterial_MODEL()
+                        {
+                            Id = Convert.ToInt32(dr["ID"]),
+                            DocumentNo = dr["DocumentNo"].ToString(),
+                            Material = dr["Material"].ToString(),
+                            Description = dr["Description"].ToString(),
+                            Brand = dr["Brand"].ToString(),
+                            Brand_TXT = dr["Brand_txt"].ToString(),
+                            PrimarySize = string.Format("{0}", dr["PrimarySize"]),
+                            Version = dr["Version"].ToString(),
+                            ChangePoint = dr["ChangePoint"].ToString(),
+                            CreateBy = dr["CreateBy"].ToString(),
+                            MaterialGroup = string.Format("{0}", dr["MaterialGroup"]),
+                            MaterialGroup_TXT = string.Format("{0}", dr["MaterialGroup_txt"]),
+                            ReferenceMaterial = string.Format("{0}", dr["ReferenceMaterial"]),
+                            SusRecycledContent = string.Format("{0}", dr["SusRecycledContent"]),
+                            SusSecondaryPKGWeight = string.Format("{0}", dr["SusSecondaryPKGWeight"]),
+                            SustainOther = string.Format("{0}", dr["SustainOther"]),
+                            SustainCertSourcing = string.Format("{0}", dr["SustainCertSourcing"]),
+                            SustainCertification = string.Format("{0}", dr["SustainCertification"]),
+                            SustainComposatable = string.Format("{0}", dr["SustainComposatable"]),
+                            SustainRecyclable = string.Format("{0}", dr["SustainRecyclable"]),
+                            SustainReuseable = string.Format("{0}", dr["SustainReuseable"]),
+                            SustainPlastic = string.Format("{0}", dr["SustainPlastic"]),
+                            SustainMaterial = string.Format("{0}", dr["SustainMaterial"]),
+                            Specie = string.Format("{0}", dr["Specie"]),
+                            Scientific_Name = string.Format("{0}", dr["Scientific_Name"]),
+                            Catching_Method = string.Format("{0}", dr["Catching_Method"]),
+                            Inactive = string.Format("{0}", dr["Inactive"]),
+                            Fixed_Desc = string.Format("{0}", dr["Fixed_Desc"]),
+                            StatusApp = string.Format("{0}", dr["StatusApp"]),
+                            SheetSize = string.Format("{0}", dr["SheetSize"]),
+                            Assignee = string.Format("{0}", dr["Assignee"]),
+                            PackingStyle = string.Format("{0}", dr["PackingStyle"]),
+                            Packing = string.Format("{0}", dr["Packing"]),
+                            StyleofPrinting = string.Format("{0}", dr["StyleofPrinting"]),
+                            ContainerType = string.Format("{0}", dr["ContainerType"]),
+                            LidType = string.Format("{0}", dr["LidType"]),
+                            Condition = string.Format("{0}", dr["Condition"]),
+                            ProductCode = string.Format("{0}", dr["ProductCode"]),
+                            FAOZone = string.Format("{0}", dr["FAOZone"]),
+                            Plant = string.Format("{0}", dr["Plant"]),
+                            Totalcolour = string.Format("{0}", dr["Totalcolour"]),
+                            Processcolour = string.Format("{0}", dr["Processcolour"]),
+                            PlantRegisteredNo = string.Format("{0}", dr["PlantRegisteredNo"]),
+                            CompanyNameAddress = string.Format("{0}", dr["CompanyNameAddress"]),
+                            PMScolour = string.Format("{0}", dr["PMScolour"]),
+                            Symbol = string.Format("{0}", dr["Symbol"]),
+                            CatchingArea = string.Format("{0}", dr["CatchingArea"]),
+                            CatchingPeriodDate = string.Format("{0}", dr["CatchingPeriodDate"]),
+                            Grandof = string.Format("{0}", dr["Grandof"]),
+                            Flute = string.Format("{0}", dr["Flute"]),
+                            Vendor = string.Format("{0}", dr["Vendor"]),
+                            Dimension = string.Format("{0}", dr["Dimension"]),
+                            RSC = string.Format("{0}", dr["RSC"]),
+                            Accessories = string.Format("{0}", dr["Accessories"]),
+                            PrintingStyleofPrimary = string.Format("{0}", dr["PrintingStyleofPrimary"]),
+                            PrintingStyleofSecondary = string.Format("{0}", dr["PrintingStyleofSecondary"]),
+                            CustomerDesign = string.Format("{0}", dr["CustomerDesign"]),
+                            CustomerSpec = string.Format("{0}", dr["CustomerSpec"]),
+                            CustomerSize = string.Format("{0}", dr["CustomerSize"]),
+                            CustomerVendor = string.Format("{0}", dr["CustomerVendor"]),
+                            CustomerColor = string.Format("{0}", dr["CustomerColor"]),
+                            CustomerScanable = string.Format("{0}", dr["CustomerScanable"]),
+                            CustomerBarcodeSpec = string.Format("{0}", dr["CustomerBarcodeSpec"]),
+                            FirstInfoGroup = string.Format("{0}", dr["FirstInfoGroup"]),
+                            SO = string.Format("{0}", dr["SO"]),
+                            PICMkt = string.Format("{0}", dr["PICMkt"]),
+                            SOPlant = string.Format("{0}", dr["SOPlant"]),
+                            Destination = string.Format("{0}", dr["Destination"]),
+                            Remark = string.Format("{0}", dr["Remark"]),
+                            GrossWeight = string.Format("{0}", dr["GrossWeight"]),
+                            FinalInfoGroup = string.Format("{0}", dr["FinalInfoGroup"]),
+                            Note = string.Format("{0}", dr["Note"]),
+                            Assignee_TXT = string.Format("{0}", dr["Assignee_txt"]),
+                            //Typeof_ID = Convert.ToInt32(dr["Typeof_ID"]),
+                            Typeof = string.Format("{0}", dr["Typeof"]),
+                            TypeofCarton2 = string.Format("{0}", dr["TypeofCarton2"]),
+                            DMSNo = string.Format("{0}", dr["DMSNo"]),
+                            TypeofPrimary = string.Format("{0}", dr["TypeofPrimary"]),
+                            PrintingSystem = string.Format("{0}", dr["PrintingSystem"]),
+                            Direction = string.Format("{0}", dr["Direction"]),
+                            RollSheet = string.Format("{0}", dr["RollSheet"]),
+                            RequestType = string.Format("{0}", dr["RequestType"]),
+                            PlantAddress = string.Format("{0}", dr["PlantAddress"]),
+                            Refnumber = string.Format("{0}", dr["Refnumber"]),
+                            Extended_Plant = string.Format("{0}", dr["Extended_Plant"])
+                        }).ToList();
             }
         }
 
@@ -3777,7 +3792,7 @@ namespace BLL.Services
                 cmd.CommandText = "spGetProductCode";
                 cmd.Parameters.AddWithValue("@ProductCode", string.Format("{0}", ro.data.PRODUCT_CODE));
                 cmd.Parameters.AddWithValue("@address", string.Format("{0}", ro.data.Address));
-                 
+
                 cmd.Parameters.AddWithValue("@registeredNo", string.Format("{0}", ro.data.RegisteredNo));
                 cmd.Connection = con;
                 con.Open();
@@ -3821,7 +3836,7 @@ namespace BLL.Services
                             ID = Convert.ToInt32(dr["Id"]),
                             CONDITION = dr["Condition"].ToString(),
                             REQUESTTYPE = dr["RequestType"].ToString(),
-                            
+
                             DOCUMENTNO = dr["DocumentNo"].ToString(),
                             //DMSNO = dr["DMSNo"].ToString(),
                             MATERIAL = string.Format("{0}", dr["Material"]),
@@ -4022,7 +4037,7 @@ namespace BLL.Services
         //        }
         //    }
         //}
-        public static void consoleWriteLineProcessTime(DateTime s,DateTime l, string subject)
+        public static void consoleWriteLineProcessTime(DateTime s, DateTime l, string subject)
         {
             TimeSpan ts = l - s;
             Console.WriteLine(subject + ". of Minutes = {0}", ts.TotalMinutes);
@@ -4246,7 +4261,7 @@ namespace BLL.Services
 
             MapperServices.Initialize();
 
-           // var msg = MessageHelper.GetMessage("MSG_001"); // Helpers.MessageHelper.GetMessage("MSG_001");
+            // var msg = MessageHelper.GetMessage("MSG_001"); // Helpers.MessageHelper.GetMessage("MSG_001");
 
 
             DateTime dateStart;
@@ -4259,7 +4274,7 @@ namespace BLL.Services
             {
                 //-------------------------
                 Console.WriteLine("App Updated 20210517");
-                Console.WriteLine("sv:"+context.Database.Connection.DataSource + "  db:"+context.Database.Connection.Database);
+                Console.WriteLine("sv:" + context.Database.Connection.DataSource + "  db:" + context.Database.Connection.Database);
 
                 //dateStart = DateTime.Now;
                 // Console.WriteLine("start:" + dateStart);
@@ -4282,7 +4297,7 @@ namespace BLL.Services
                 //select f).Take(50).ToList();
                 string formatDate = "yyyyMMdd";
                 var soHeader = context.Database.SqlQuery<SAP_M_PO_COMPLETE_SO_HEADER_TMP>("spGetSalesOrderTMP2 @ID",
-                            new SqlParameter("@ID", paramso.ToString())).ToList(); 
+                            new SqlParameter("@ID", paramso.ToString())).ToList();
                 List<SO_HEADER> itemSOHeader = new List<SO_HEADER>();
                 foreach (var h in soHeader)
                 {
@@ -4337,7 +4352,7 @@ namespace BLL.Services
                         if (i.ETD_DATE_FROM != null)
                             iSO.ETD_DATE_FROM = Convert.ToDateTime(i.ETD_DATE_FROM).ToString(formatDate);
                         if (i.ETD_DATE_TO != null)
-                                iSO.ETD_DATE_TO = Convert.ToDateTime(i.ETD_DATE_TO).ToString(formatDate);
+                            iSO.ETD_DATE_TO = Convert.ToDateTime(i.ETD_DATE_TO).ToString(formatDate);
                         iSO.PRODUCT_CODE = i.PRODUCT_CODE;
                         iSO.MATERIAL_DESCRIPTION = i.MATERIAL_DESCRIPTION;
                         iSO.NET_WEIGHT = i.NET_WEIGHT;
@@ -4398,9 +4413,9 @@ namespace BLL.Services
                     Results = WebServices.Helper.SD_129_Helper.aSavePOCompleteSOtmp(param);
                 }
 
-             
-               
-                             //context.Database.ExecuteSqlCommand("DELETE FROM SAP_M_PO_COMPLETE_SO_HEADER_TMP");
+
+
+                //context.Database.ExecuteSqlCommand("DELETE FROM SAP_M_PO_COMPLETE_SO_HEADER_TMP");
                 //context.Database.ExecuteSqlCommand("DELETE FROM SAP_M_PO_COMPLETE_SO_ITEM_TMP");
                 //context.Database.ExecuteSqlCommand("DELETE FROM SAP_M_PO_COMPLETE_SO_ITEM_COMPONENT_TMP");
             }
@@ -4438,7 +4453,7 @@ namespace BLL.Services
             }
         }
 
-       
+
 
         public static DbContextTransaction IsolationLevel(ARTWORKEntities context)
         {
@@ -4754,7 +4769,7 @@ namespace BLL.Services
             return GetUserID(UserName, context).Value;
         }
 
-        public static string GetErrorMessage_SORepeat(Exception ex,string fn_name)
+        public static string GetErrorMessage_SORepeat(Exception ex, string fn_name)
         {
             ///---------------------------- tuning performance sorepeat 2022 by aof---------------------------------//
             string ERROR_MSG = "";
@@ -4937,7 +4952,7 @@ namespace BLL.Services
         public static string GetVendorName(int? vendorID, ARTWORKEntities context)
         {
             if (vendorID == null) { return ""; }
-            
+
             string vendorName = "";
 
             //var vendor = XECM_M_VENDOR_SERVICE.GetByVENDOR_ID(vendorID, context);
@@ -6033,10 +6048,11 @@ namespace BLL.Services
         //    }
         //}
 
-        
 
 
-        public static string GetSaleOrderItems(PP_MODEL pp, ARTWORKEntities context) {
+
+        public static string GetSaleOrderItems(PP_MODEL pp, ARTWORKEntities context)
+        {
             var query = context.Database.SqlQuery<string>("spGetSaleOrderItems @so,@item",
                       new SqlParameter("@so", string.Format("{0}", pp.SALES_ORDER)),
                       new SqlParameter("@item", string.Format("{0}", pp.SALES_ORDER_ITEM)))
@@ -6083,19 +6099,19 @@ namespace BLL.Services
                                         new SqlParameter("@requestdateTo", string.Format("{0}", param.data.GET_BY_CREATE_DATE_TO))
                                         )
                                         .ToList();
-            p= query.Select(m => new PP_MODEL()
+            p = query.Select(m => new PP_MODEL()
             {
                 ARTWORK_REQUEST_ID = m.ARTWORK_REQUEST_ID,
                 ARTWORK_SUB_ID = m.ARTWORK_SUB_ID,
                 ARTWORK_ITEM_ID = m.ARTWORK_ITEM_ID,
                 GROUPING = m.GROUPING,
-                SOLD_TO_ID= m.SOLD_TO_ID ,
+                SOLD_TO_ID = m.SOLD_TO_ID,
                 SHIP_TO_ID = m.SHIP_TO_ID,
                 SOLD_TO_DISPLAY_TXT = m.SOLD_TO_DISPLAY_TXT,
                 SHIP_TO_DISPLAY_TXT = m.SHIP_TO_DISPLAY_TXT,
                 WORKFLOW_NO = m.WORKFLOW_NO,
                 SALES_ORDER_ITEM = string.Format("{0}", m.SALES_ORDER_ITEM.Replace("|", "<br> ")),
-                REMARK_BY_PA=m.REMARK_BY_PA,
+                REMARK_BY_PA = m.REMARK_BY_PA,
                 RDD = m.RDD,
                 BRAND_ID = m.BRAND_ID,
                 BRAND_DISPLAY_TXT = m.BRAND_DISPLAY_TXT,
@@ -6106,7 +6122,7 @@ namespace BLL.Services
                 RECEIVE_DATE = m.RECEIVE_DATE,
                 PKG_CODE = m.PKG_CODE.Replace("|", "<br> "),
                 VENDOR_DISPLAY_TXT = m.VENDOR_DISPLAY_TXT,
-                STATUS =   m.STATUS
+                STATUS = m.STATUS
             }).ToList();
 
             return p;
@@ -6216,40 +6232,40 @@ namespace BLL.Services
         }
         public static void CompletePOForm(ART_WF_ARTWORK_PROCESS_REQUEST param, ARTWORKEntities context)
         {
-                var process = ART_WF_ARTWORK_PROCESS_SERVICE.GetByARTWORK_SUB_ID(param.data.ARTWORK_SUB_ID, context);
-                //var process = ART_WF_ARTWORK_PROCESS_SERVICE.GetByItem(new ART_WF_ARTWORK_PROCESS() { ARTWORK_SUB_ID = param.data.ARTWORK_SUB_ID }, context).FirstOrDefault();
+            var process = ART_WF_ARTWORK_PROCESS_SERVICE.GetByARTWORK_SUB_ID(param.data.ARTWORK_SUB_ID, context);
+            //var process = ART_WF_ARTWORK_PROCESS_SERVICE.GetByItem(new ART_WF_ARTWORK_PROCESS() { ARTWORK_SUB_ID = param.data.ARTWORK_SUB_ID }, context).FirstOrDefault();
 
-                if (process != null)
+            if (process != null)
+            {
+                //var REQUEST_ITEM_NO = ART_WF_ARTWORK_REQUEST_ITEM_SERVICE.GetByARTWORK_ITEM_ID(process.ARTWORK_ITEM_ID, context).REQUEST_ITEM_NO;
+                var REQUEST_ITEM_NO = (from p in context.ART_WF_ARTWORK_REQUEST_ITEM
+                                       where p.ARTWORK_ITEM_ID == process.ARTWORK_ITEM_ID
+                                       select p.REQUEST_ITEM_NO).FirstOrDefault();
+
+                var listPO = (from o in context.ART_WF_ARTWORK_MAPPING_PO
+                              where o.ARTWORK_NO == REQUEST_ITEM_NO
+                              select o).ToList();
+
+                if (listPO != null)
                 {
-                    //var REQUEST_ITEM_NO = ART_WF_ARTWORK_REQUEST_ITEM_SERVICE.GetByARTWORK_ITEM_ID(process.ARTWORK_ITEM_ID, context).REQUEST_ITEM_NO;
-                    var REQUEST_ITEM_NO = (from p in context.ART_WF_ARTWORK_REQUEST_ITEM
-                                           where p.ARTWORK_ITEM_ID == process.ARTWORK_ITEM_ID
-                                           select p.REQUEST_ITEM_NO).FirstOrDefault();
-
-                    var listPO = (from o in context.ART_WF_ARTWORK_MAPPING_PO
-                                  where o.ARTWORK_NO == REQUEST_ITEM_NO
-                                  select o).ToList();
-
-                    if (listPO != null)
+                    foreach (var iPO in listPO)
                     {
-                        foreach (var iPO in listPO)
-                        {
-                            var mappingPo = new ART_WF_ARTWORK_MAPPING_PO();
-                            mappingPo.ARTWORK_MAPPING_PO_ID = iPO.ARTWORK_MAPPING_PO_ID;
-                            mappingPo.ARTWORK_NO = iPO.ARTWORK_NO;
-                            mappingPo.PO_NO = iPO.PO_NO;
-                            mappingPo.SO_NO = iPO.SO_NO;
-                            mappingPo.MATERIAL_NO = iPO.MATERIAL_NO;
-                            mappingPo.PO_ITEM = iPO.PO_ITEM;
-                            mappingPo.SO_ITEM = iPO.SO_ITEM;
-                            mappingPo.CREATE_BY = -1;
-                            mappingPo.UPDATE_BY = -1;
-                            mappingPo.IS_ACTIVE = "";
+                        var mappingPo = new ART_WF_ARTWORK_MAPPING_PO();
+                        mappingPo.ARTWORK_MAPPING_PO_ID = iPO.ARTWORK_MAPPING_PO_ID;
+                        mappingPo.ARTWORK_NO = iPO.ARTWORK_NO;
+                        mappingPo.PO_NO = iPO.PO_NO;
+                        mappingPo.SO_NO = iPO.SO_NO;
+                        mappingPo.MATERIAL_NO = iPO.MATERIAL_NO;
+                        mappingPo.PO_ITEM = iPO.PO_ITEM;
+                        mappingPo.SO_ITEM = iPO.SO_ITEM;
+                        mappingPo.CREATE_BY = -1;
+                        mappingPo.UPDATE_BY = -1;
+                        mappingPo.IS_ACTIVE = "";
 
-                            ART_WF_ARTWORK_MAPPING_PO_SERVICE.SaveOrUpdateNoLog(mappingPo, context);
-                        }
+                        ART_WF_ARTWORK_MAPPING_PO_SERVICE.SaveOrUpdateNoLog(mappingPo, context);
                     }
                 }
+            }
         }
         //public static bool CheckTypeOfProductAndCompanyArtwork(int userId, int artworkRequestId, int artworkSubId
         //    , ARTWORKEntities context, List<ART_M_STEP_ARTWORK> allStepArtwork
@@ -6371,13 +6387,13 @@ namespace BLL.Services
         public static bool GetMarketingMailToArtworkRequest(int artwork_request, ARTWORKEntities context)
         {
 
-            SqlParameter[] arge = { new SqlParameter("@request_id", artwork_request)};
+            SqlParameter[] arge = { new SqlParameter("@request_id", artwork_request) };
             DataTable dt = GetRelatedResources("spGetMarketingMailToArtworkRequest", arge);
             List<ART_M_USER> luser = (from DataRow dr in dt.Rows
-                                                select new ART_M_USER
-                                                {
-                                                    USER_ID = Convert.ToInt32((dr["USER_ID"]))
-                                                }).ToList();
+                                      select new ART_M_USER
+                                      {
+                                          USER_ID = Convert.ToInt32((dr["USER_ID"]))
+                                      }).ToList();
             var isMK = false;
             if (luser.Count() > 0)
             {
@@ -6387,12 +6403,12 @@ namespace BLL.Services
             return isMK;
         }
         public static bool GetMarketingCreatedArtworkRequest(ART_WF_ARTWORK_REQUEST artwork_request, ARTWORKEntities context)
-        { 
+        {
             var isMK = false;
 
             if (artwork_request != null)
-            {   
-                    isMK = IsMarketing(artwork_request.CREATOR_ID.GetValueOrDefault(0), context);
+            {
+                isMK = IsMarketing(artwork_request.CREATOR_ID.GetValueOrDefault(0), context);
             }
 
             return isMK;
@@ -6413,7 +6429,7 @@ namespace BLL.Services
 
                     isMK = IsMarketing(artwork_request.CREATOR_ID.GetValueOrDefault(0), context);
                 }
-               
+
             }
 
             return isMK;
@@ -6736,7 +6752,7 @@ namespace BLL.Services
             return sbWHTextIDAll.ToString();
         }
 
-        public static string StampToPDF(string str1, string str2, string str3, Stream fileStream,long node_id)
+        public static string StampToPDF(string str1, string str2, string str3, Stream fileStream, long node_id)
         {
             var strPath = ConfigurationManager.AppSettings["PathTempFile"];
             bool exists = System.IO.Directory.Exists(strPath);
@@ -6744,7 +6760,7 @@ namespace BLL.Services
                 System.IO.Directory.CreateDirectory(strPath);
 
             FileStream res = null;
-             string newFile = strPath + DateTime.Now.ToString("ddMMyyyy HHmmssffff") + "_" + node_id + ".pdf";  ////#INC-6541 added node_id to concat with filename by aof 
+            string newFile = strPath + DateTime.Now.ToString("ddMMyyyy HHmmssffff") + "_" + node_id + ".pdf";  ////#INC-6541 added node_id to concat with filename by aof 
             //string newFile = strPath + DateTime.Now.ToString("ddMMyyyy HHmmssffff") + ".pdf"; ////#INC-6541 commented by aof 
             FileStream fs = null;
             Document document = null;
@@ -7012,23 +7028,23 @@ namespace BLL.Services
 
 
 
-        public static void SaveLogAction(string TABLE_NAME,string ACTION,string NEW_VALUE,string OLD_VALUE,string ERROR_MEG)
+        public static void SaveLogAction(string TABLE_NAME, string ACTION, string NEW_VALUE, string OLD_VALUE, string ERROR_MEG)
         {
             using (var context = new ARTWORKEntities())
             {
                 ART_SYS_LOG log = new ART_SYS_LOG();
                 log.TABLE_NAME = TABLE_NAME;
-                log.ACTION =ACTION;
+                log.ACTION = ACTION;
                 log.NEW_VALUE = NEW_VALUE;
                 log.OLD_VALUE = OLD_VALUE;
                 log.ERROR_MSG = ERROR_MEG;
                 log.CREATE_BY = -5;
-                log.UPDATE_BY = -5;     
+                log.UPDATE_BY = -5;
                 ART_SYS_LOG_SERVICE.SaveNoLog(log, context);
             }
         }
 
-        public static void SaveLogReturnInterface(SERVICE_RESULT_MODEL Results, string TABLE_NAME, string guid,string wsCode)
+        public static void SaveLogReturnInterface(SERVICE_RESULT_MODEL Results, string TABLE_NAME, string guid, string wsCode)
         {
             using (var context = new ARTWORKEntities())
             {
@@ -7068,7 +7084,7 @@ namespace BLL.Services
 
             var COUNTRY_ID = artworkRequest.COUNTRY.Select(s => s.COUNTRY_ID).ToList().FirstOrDefault();
 
-            if(COUNTRY_ID > 0)
+            if (COUNTRY_ID > 0)
             //if (countryRequest != null)
             {
                 //var country = SAP_M_COUNTRY_SERVICE.GetByCOUNTRY_ID(countryRequest.COUNTRY_ID, context);
@@ -7534,7 +7550,8 @@ namespace BLL.Services
             {
                 if (!productCode.StartsWith("3")) { productCode = ""; }
             }
-            if (string.IsNullOrEmpty(salesOrder)) { 
+            if (string.IsNullOrEmpty(salesOrder))
+            {
                 salesOrder = "000";
             }
 
@@ -7698,7 +7715,7 @@ namespace BLL.Services
                 }
             }
             if (servicetype == "73")
-                GetDataMaterialLock(mat5,isNewMat5, context);  //#INC-92654
+                GetDataMaterialLock(mat5, isNewMat5, context);  //#INC-92654
             //GetDataMaterialLock(mat5, context);
         }
 
@@ -7810,7 +7827,7 @@ namespace BLL.Services
             }
         }
 
-        private static void GetDataMaterialLock(string mat5,bool isNewMat5, ARTWORKEntities context)  // #INC-92654  by aof added parameter isNewMat5
+        private static void GetDataMaterialLock(string mat5, bool isNewMat5, ARTWORKEntities context)  // #INC-92654  by aof added parameter isNewMat5
         {
             if (!string.IsNullOrEmpty(mat5))
             {
@@ -8010,7 +8027,7 @@ namespace BLL.Services
                                 }
                             }
 
-                         
+
                         }
                     }
                 }
@@ -8144,13 +8161,13 @@ namespace BLL.Services
                                             if (iSO.BOM_ID > 0)
                                             {
                                                 var mat5 = CNService.GetBOMNo(Convert.ToInt32(iSO.BOM_ID), context);
-                                                CNService.InsertMaterialLock(mat5, iSO.SALES_ORDER_NO, iSO.MATERIAL_NO, context,"");
+                                                CNService.InsertMaterialLock(mat5, iSO.SALES_ORDER_NO, iSO.MATERIAL_NO, context, "");
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        CNService.InsertMaterialLock(processPA.MATERIAL_NO, "000", "000", context,"");
+                                        CNService.InsertMaterialLock(processPA.MATERIAL_NO, "000", "000", context, "");
                                     }
                                 }
                             }
@@ -8292,7 +8309,7 @@ namespace BLL.Services
                                 {
                                     var soDetail2 = new ART_WF_ARTWORK_PROCESS_SO_DETAIL_2();
                                     //soDetail2 = MapperServices.ART_WF_ARTWORK_PROCESS_SO_DETAIL(soDetails[0]);
-                                     
+
                                     soDetail2.ARTWORK_PROCESS_SO_ID = soDetails[0].ARTWORK_PROCESS_SO_ID;
                                     soDetail2.ARTWORK_REQUEST_ID = soDetails[0].ARTWORK_REQUEST_ID;
                                     soDetail2.ARTWORK_SUB_ID = soDetails[0].ARTWORK_SUB_ID;
@@ -8302,7 +8319,7 @@ namespace BLL.Services
                                     soDetail2.CREATE_DATE = soDetails[0].CREATE_DATE;
                                     soDetail2.MATERIAL_NO = soDetails[0].MATERIAL_NO;
                                     soDetail2.SALES_ORDER_ITEM = soDetails[0].SALES_ORDER_ITEM;
-                                    
+
                                     soDetail2.SALES_ORDER_NO = soDetails[0].SALES_ORDER_NO;
                                     soDetail2.UPDATE_BY = soDetails[0].UPDATE_BY;
                                     soDetail2.UPDATE_DATE = soDetails[0].UPDATE_DATE;
@@ -8919,7 +8936,7 @@ namespace BLL.Services
                 return "";
         }
         //rewrited by aof #INC-11265
-       
+
 
         public static int GetVendorByArtworkSubId(int artworkSubId, ARTWORKEntities context)
         {
@@ -9110,7 +9127,7 @@ namespace BLL.Services
                 new SqlParameter("@STEP", STEP), new SqlParameter("@From", CreateDateFrom),
                 new SqlParameter("@To", CreateDateTo)).ToList();
         }
-        public static string GetProductionPlants(int ARTWORK_REQUEST_ID ,int ARTWORK_SUB_ID, ARTWORKEntities context)
+        public static string GetProductionPlants(int ARTWORK_REQUEST_ID, int ARTWORK_SUB_ID, ARTWORKEntities context)
         {
             //List<ListProductionPlant> lplant= context.Database.SqlQuery<ListProductionPlant>("spGetProductionPlant @ARTWORK_REQUEST_ID,@ARTWORK_SUB_ID", 
             //new SqlParameter("@ARTWORK_REQUEST_ID", ARTWORK_REQUEST_ID),
@@ -9163,7 +9180,7 @@ namespace BLL.Services
                 //wb.Worksheets.Add(dt);
                 //wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 //wb.Style.Font.Bold = true;
-                wb.SaveAs(file); 
+                wb.SaveAs(file);
                 wb.Dispose();
             }
         }
@@ -9188,8 +9205,8 @@ namespace BLL.Services
         }
         public static int GetAssignOrder(int PO_COMPLETE_SO_HEADER_ID, ARTWORKEntities context)
         {
-           int p= context.Database.SqlQuery<int>("spGetAssignOrder @PO_COMPLETE_SO_HEADER_ID",
-                                            new SqlParameter("@PO_COMPLETE_SO_HEADER_ID", PO_COMPLETE_SO_HEADER_ID)).FirstOrDefault();
+            int p = context.Database.SqlQuery<int>("spGetAssignOrder @PO_COMPLETE_SO_HEADER_ID",
+                                             new SqlParameter("@PO_COMPLETE_SO_HEADER_ID", PO_COMPLETE_SO_HEADER_ID)).FirstOrDefault();
             return p;
         }
         public static List<SAP_M_CHARACTERISTIC> GetQueryByName(string name, string param)
@@ -9212,10 +9229,10 @@ namespace BLL.Services
             DataTable dt = new DataTable();
             SqlParameter[] arge = { new SqlParameter("@mat5", param) };
             dt = GetRelatedResources("sp_ART_RECHECK_ARTWORK", arge);
-            return dt.Rows[0]["RECHECK"].ToString(); 
+            return dt.Rows[0]["RECHECK"].ToString();
 
         }
-        
+
         public static string GetCheckFFC(string param)
         {
             DataTable dt = new DataTable();
@@ -9224,8 +9241,8 @@ namespace BLL.Services
             return dt.Rows[0]["ARTWORK_REQUEST_TYPE"].ToString();
 
         }
- 
-        public static string Getcheck_product_vap(string mat,string param)
+
+        public static string Getcheck_product_vap(string mat, string param)
         {
             DataTable dt = new DataTable();
             SqlParameter[] arge = { new SqlParameter("@plant", param),
@@ -9257,13 +9274,13 @@ namespace BLL.Services
                 string query = scriptExcute; // "Update SapMaterial set FinalInfoGroup = @Result Where Id=@Id";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
-                    cmd.Connection = con; 
+                    cmd.Connection = con;
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
-        
+
         }
 
         public static DataTable executeProcedure(string StoredProcedure, object[] Parameters)
@@ -9345,8 +9362,8 @@ namespace BLL.Services
 
 
 
-    // write by aof
-    public static string getSQLWhereByJoinStringWithAnd(string curWhere, string newWhere)
+        // write by aof
+        public static string getSQLWhereByJoinStringWithAnd(string curWhere, string newWhere)
         {
             string retWhere = curWhere;
 
@@ -9366,7 +9383,7 @@ namespace BLL.Services
         }
 
 
-    public static string getSQLWhereLikeByConvertString(string strPattern, string fldname,bool is_replace_space = true,bool is_start_like = false,bool is_split_comma = true)
+        public static string getSQLWhereLikeByConvertString(string strPattern, string fldname, bool is_replace_space = true, bool is_start_like = false, bool is_split_comma = true)
         {
             string where = "";
 
@@ -9386,14 +9403,15 @@ namespace BLL.Services
                         arrStr = strPattern.Split(',');
                     }
                 }
-                else {
+                else
+                {
                     arrStr = new string[1];
                     arrStr[0] = strPattern;
                 }
-              
-                  
 
-               // var arrStr = strPattern.Split(',');
+
+
+                // var arrStr = strPattern.Split(',');
 
                 if (arrStr != null)
                 {
@@ -9413,8 +9431,8 @@ namespace BLL.Services
                                     else
                                     {
                                         where = "(" + fldname + " like N'" + s + "%')";
-                                    } 
-                                  
+                                    }
+
                                 }
                                 else
                                 {
@@ -9426,7 +9444,7 @@ namespace BLL.Services
                                     {
                                         where += " or (" + fldname + " like N'" + s + "%')";
                                     }
-                                       
+
                                 }
                             }
                         }
@@ -9444,7 +9462,7 @@ namespace BLL.Services
         }
 
 
-        
+
         public static bool checkRequestFormIsVAP(int artwork_request_id, ARTWORKEntities context)
         {
             //by aof 20230121_3V_SOREPAT INC-93118
@@ -9452,9 +9470,9 @@ namespace BLL.Services
 
 
             var listPlantID = (from m in context.ART_WF_ARTWORK_REQUEST_PRODUCTION_PLANT where m.ARTWORK_REQUEST_ID == artwork_request_id select m.PRODUCTION_PLANT_ID).Distinct().ToList();
-            var listProudctType= (from m in context.ART_WF_ARTWORK_REQUEST_PRODUCT where m.ARTWORK_REQUEST_ID == artwork_request_id select m.PRODUCT_TYPE).Distinct().ToList();
+            var listProudctType = (from m in context.ART_WF_ARTWORK_REQUEST_PRODUCT where m.ARTWORK_REQUEST_ID == artwork_request_id select m.PRODUCT_TYPE).Distinct().ToList();
 
-            if (listProudctType != null && listProudctType.Count > 0 )
+            if (listProudctType != null && listProudctType.Count > 0)
             {
                 isVAP = true;
                 foreach (var producttype in listProudctType)
@@ -9469,7 +9487,7 @@ namespace BLL.Services
 
             if (isVAP)
             {
-                if (listPlantID != null && listPlantID.Count > 0 )
+                if (listPlantID != null && listPlantID.Count > 0)
                 {
                     foreach (var plantid in listPlantID)
                     {
@@ -9479,7 +9497,7 @@ namespace BLL.Services
                         }
                     }
                 }
-                
+
             }
 
             return isVAP;
@@ -9500,7 +9518,7 @@ namespace BLL.Services
                     {
 
                         con.Open();
-                        string strQuery = @"select top 1 fn from ulogin where user_name='"+ UserName +"'";
+                        string strQuery = @"select top 1 fn from ulogin where user_name='" + UserName + "'";
                         DataTable dt = new DataTable();
                         SqlDataAdapter oAdapter = new SqlDataAdapter(strQuery, con);
                         // Fill the dataset.
@@ -9518,7 +9536,7 @@ namespace BLL.Services
             }
             catch (Exception ex) { CNService.GetErrorMessage(ex); }
 
-           
+
             return fn;
         }
 

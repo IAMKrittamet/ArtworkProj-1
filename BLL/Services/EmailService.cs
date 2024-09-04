@@ -10,6 +10,10 @@ using System.Configuration;
 using System.Threading;
 using BLL.Helpers;
 using DAL.Model;
+using MimeKit;
+using System.Web;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Net;
 
 namespace BLL.Services
 {
@@ -74,6 +78,107 @@ namespace BLL.Services
                     email.Join();
             }
         }
+
+        public static void SendTest2( string Subject, string From, string To, string Body, string CC)
+        {
+            if (!string.IsNullOrEmpty(To))
+            {
+                string msg_error = "";
+                string status = "1";
+                //To = "voravut.somboornpong@thaiunion.com";
+                //CC = "pornnicha.thanarak@thaiunion.com";
+                Thread email = new Thread(delegate ()
+                {
+                    try
+                    {
+                        Subject = Subject.Replace("\n", " ");
+                        MailMessage msg = new MailMessage(From, To, Subject, Body);
+                        msg.SubjectEncoding = Encoding.UTF8;
+                        msg.BodyEncoding = Encoding.UTF8;
+                        msg.IsBodyHtml = true;
+
+                        if (!string.IsNullOrEmpty(CC))
+                        {
+                            string[] email_cc = CC.Split(',');
+                            foreach (string s in email_cc)
+                                msg.CC.Add(new MailAddress(s));
+                        }
+                        //msg.Bcc.Add("voravut.somboornpong@thaiunion.com");
+                        //msg.Bcc.Add("pornnicha.thanarak@thaiunion.com");
+                        int Port = Convert.ToInt32(ConfigurationManager.AppSettings["SMTPPort"]);
+                        SmtpClient sc = new SmtpClient(ConfigurationManager.AppSettings["SMTPServer"], 25);
+                        sc.UseDefaultCredentials = false; 
+
+                        ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+                          bool IsUseSSL = false;
+                        var SMTPSSL = ConfigurationManager.AppSettings["SMTPSSL"];
+                        if (SMTPSSL.ToUpper().Trim() == "TRUE")
+                        {
+                            IsUseSSL = false;
+                        }
+                        sc.EnableSsl = IsUseSSL;
+                        sc.Send(msg);
+                    }
+                    catch (Exception ex)
+                    {
+                        msg_error = CNService.GetErrorMessage(ex);
+                        status = "0";
+                    }
+                    finally
+                    {
+                        saveLogSendEmailArtwork(0, "", Subject, From, To, Body, CC, status, msg_error);
+                    }
+                });
+
+                email.IsBackground = true;
+                email.Start();
+
+                 
+            }
+        }
+
+        public static void SendTest(string Subject, string From, string To, string Body, string CC)
+        {
+            var email = new MimeMessage();
+            int Port = Convert.ToInt32(ConfigurationManager.AppSettings["SMTPPort"]);
+            string smtpServer = ConfigurationManager.AppSettings["SMTPServer"];
+            string from = ConfigurationManager.AppSettings["SMTPFrom"];
+            string msg_error = "";
+            string status = "1";
+
+            try
+            {
+                email.From.Add(new MailboxAddress("Sender Name", from));
+                email.To.Add(new MailboxAddress("Receiver Name", "krittamet@iamconsulting.co.th"));
+
+                email.Subject = "Testing out email sending";
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Plain)
+                {
+                    Text = "Hello all the way from the land of C#"
+                };
+                using (var smtp = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    smtp.Connect(smtpServer, Port, false);
+
+                    // Note: only needed if the SMTP server requires authentication
+                    // smtp.Authenticate("smtp_username", "smtp_password");
+
+                    smtp.Send(email);
+                    smtp.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                msg_error = CNService.GetErrorMessage(ex);
+                status = "0";
+            }
+            finally
+            {
+                saveLogSendEmailArtwork(0, "", Subject, From, To, Body, CC, status, msg_error);
+            }
+
+        }
+
 
         public static void sendEmailMockup(int mockupId, int mockupSubId, string templateCode, ARTWORKEntities context, string forReason = "")
         {

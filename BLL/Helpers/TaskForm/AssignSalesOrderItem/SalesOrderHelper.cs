@@ -829,8 +829,8 @@ namespace BLL.Helpers
                                                                      "<b>In transit to</b> : " + itemForGroup.IN_TRANSIT_TO + "<br />" +
                                                                      "<b>Additional brand</b> : " + itemForGroup.ADDITIONAL_BRAND_ID + ":" + itemForGroup.ADDITIONAL_BRAND_DESCRIPTION + "<br />" +
                                                                      "<b>Packaging code(BOM component)</b> : " + itemForGroup.COMPONENT_MATERIAL + "<br />" +
-                                                                     "<b>Sold to</b> : " + itemForGroup.SOLD_TO + ":" + itemForGroup.SOLD_TO_NAME + "<br />" +
-                                                                     "<b>Ship to</b> : " + itemForGroup.SHIP_TO + ":" + itemForGroup.SHIP_TO_NAME + "<br />" +
+                                                                     "<b>Sold to</b> : " + itemForGroup.SOLD_TO + ":" + itemForGroup.SOLD_TO_NAME.Replace("\"","") + "<br />" +
+                                                                     "<b>Ship to</b> : " + itemForGroup.SHIP_TO + ":" + itemForGroup.SHIP_TO_NAME.Replace("\"", "?") + "<br />" +
                                                                      "<b>Brand</b> : " + itemForGroup.BRAND_ID + ":" + itemForGroup.BRAND_DESCRIPTION + "<br />" +
                                                                      "<b>PKG & warehouse text</b> : " + WHText + "<br />" +
                                                                      "<b>General text</b> : " + GeneralText + "<br />";

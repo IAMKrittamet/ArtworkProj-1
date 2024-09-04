@@ -167,7 +167,9 @@ namespace PLL.Helpers
                         string contentType = file.ContentType;
                         var att = AttachmentMockupHelper.SaveAttachmentFileVersion(node.Filename, extension, contentType, process.MOCKUP_ID, mockupSubId, file.ContentLength, nodeId, userId, last_version, context);
 
-                        resultList.Add(UploadResult_Mockup(file.FileName, file.ContentLength, node.ID, att, context));
+                        //Fixed by IAM krittamet 15082024 : Return First version node id
+                        //resultList.Add(UploadResult_Mockup(file.FileName, file.ContentLength, node.ID, att, context));
+                        resultList.Add(UploadResult_Mockup(file.FileName, file.ContentLength, nodeId, att, context));
 
                         dbContextTransaction.Commit();
                     }

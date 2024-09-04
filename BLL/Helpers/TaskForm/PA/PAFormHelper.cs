@@ -589,12 +589,13 @@ namespace BLL.Helpers
                                     ART_WF_ARTWORK_REQUEST_PRODUCT productReq = new ART_WF_ARTWORK_REQUEST_PRODUCT();
                                     XECM_M_PRODUCT xProduct = new XECM_M_PRODUCT();
                                     xProduct = XECM_M_PRODUCT_SERVICE.GetByXECM_PRODUCT_ID(paData_2.PRODUCT_CODE_ID, context);
-
+                                    string isReload = "";
                                     if (productReq != null)
                                     {
                                         if (productReq.PRODUCT_CODE_ID > 0)
                                         {
                                             xProduct.XECM_PRODUCT_ID = productReq.PRODUCT_CODE_ID;
+                                            isReload = "X";
                                         }
                                     }
                                     else
@@ -602,10 +603,14 @@ namespace BLL.Helpers
                                         if (paData_2.PRODUCT_CODE_ID != null)
                                         {
                                             xProduct.XECM_PRODUCT_ID = Convert.ToInt32(paData_2.PRODUCT_CODE_ID);
+                                            isReload = "X";
                                         }
                                     }
 
-                                    xProduct = XECM_M_PRODUCT_SERVICE.GetByItem(xProduct, context).FirstOrDefault();
+                                    if (isReload.Equals("X"))
+                                    {
+                                        xProduct = XECM_M_PRODUCT_SERVICE.GetByItem(xProduct, context).FirstOrDefault();
+                                    }
 
                                     if (xProduct != null)
                                     {

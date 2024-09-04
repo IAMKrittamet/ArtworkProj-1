@@ -1,0 +1,171 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\MyWork\\TU_GIT\\ArtworkProj\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\MyWork\\TU_GIT\\ArtworkProj\\ADData\\.vs\\z.ADData.csproj.dtbcache.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ADData\\.vs\\z.ADData.csproj.dtbcache.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|c:\\mywork\\tu_git\\artworkproj\\pll\\scripts\\artworkform\\taskformindex.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|solutionrelative:pll\\scripts\\artworkform\\taskformindex.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\pll\\scripts\\artworkform\\taskformsalesorder.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|solutionrelative:pll\\scripts\\artworkform\\taskformsalesorder.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CFFBA2A-5671-490F-A135-BE0CC97D3C09}|BLL\\BLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\bll\\helpers\\taskform\\assignsalesorderitem\\salesorderhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CFFBA2A-5671-490F-A135-BE0CC97D3C09}|BLL\\BLL.csproj|solutionrelative:bll\\helpers\\taskform\\assignsalesorderitem\\salesorderhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\pll\\api\\taskform\\assignsalesorderitem\\assignsalesordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|solutionrelative:pll\\api\\taskform\\assignsalesorderitem\\assignsalesordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\pll\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|solutionrelative:pll\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CFFBA2A-5671-490F-A135-BE0CC97D3C09}|BLL\\BLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\bll\\webservices\\helper\\sap\\mm_71_helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CFFBA2A-5671-490F-A135-BE0CC97D3C09}|BLL\\BLL.csproj|solutionrelative:bll\\webservices\\helper\\sap\\mm_71_helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|C:\\MyWork\\TU_GIT\\ArtworkProj\\pll\\api\\taskform\\pomappingaw\\pomappingawcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B9D39D-0EE9-42A7-A601-5B6B5890B7F8}|PLL\\PLL.csproj|solutionrelative:pll\\api\\taskform\\pomappingaw\\pomappingawcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "z.ADData.csproj.dtbcache.json",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\ADData\\.vs\\z.ADData.csproj.dtbcache.json",
+              "RelativeDocumentMoniker": "ADData\\.vs\\z.ADData.csproj.dtbcache.json",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\ADData\\.vs\\z.ADData.csproj.dtbcache.json",
+              "RelativeToolTip": "ADData\\.vs\\z.ADData.csproj.dtbcache.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-04T17:32:11.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaskFormIndex.js",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Scripts\\ArtworkForm\\TaskFormIndex.js",
+              "RelativeDocumentMoniker": "PLL\\Scripts\\ArtworkForm\\TaskFormIndex.js",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Scripts\\ArtworkForm\\TaskFormIndex.js",
+              "RelativeToolTip": "PLL\\Scripts\\ArtworkForm\\TaskFormIndex.js",
+              "ViewState": "AQIAANMCAAAAAAAAAAAqwOgCAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-04T17:11:37.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SalesOrderHelper.cs",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\BLL\\Helpers\\TaskForm\\AssignSalesOrderItem\\SalesOrderHelper.cs",
+              "RelativeDocumentMoniker": "BLL\\Helpers\\TaskForm\\AssignSalesOrderItem\\SalesOrderHelper.cs",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\BLL\\Helpers\\TaskForm\\AssignSalesOrderItem\\SalesOrderHelper.cs*",
+              "RelativeToolTip": "BLL\\Helpers\\TaskForm\\AssignSalesOrderItem\\SalesOrderHelper.cs*",
+              "ViewState": "AQIAAHEBAAAAAAAAAAAhwHYBAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T16:38:01.47Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskFormSalesOrder.js",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Scripts\\ArtworkForm\\TaskFormSalesOrder.js",
+              "RelativeDocumentMoniker": "PLL\\Scripts\\ArtworkForm\\TaskFormSalesOrder.js",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Scripts\\ArtworkForm\\TaskFormSalesOrder.js",
+              "RelativeToolTip": "PLL\\Scripts\\ArtworkForm\\TaskFormSalesOrder.js",
+              "ViewState": "AQIAAJgCAAAAAAAAAAAYwHsCAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-04T16:31:47.469Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Web.config",
+              "RelativeDocumentMoniker": "PLL\\Web.config",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\Web.config",
+              "RelativeToolTip": "PLL\\Web.config",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABwAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-09-04T16:14:12.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AssignSalesOrderController.cs",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\API\\TaskForm\\AssignSalesOrderItem\\AssignSalesOrderController.cs",
+              "RelativeDocumentMoniker": "PLL\\API\\TaskForm\\AssignSalesOrderItem\\AssignSalesOrderController.cs",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\API\\TaskForm\\AssignSalesOrderItem\\AssignSalesOrderController.cs",
+              "RelativeToolTip": "PLL\\API\\TaskForm\\AssignSalesOrderItem\\AssignSalesOrderController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAuwCYAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T15:07:50.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MM_71_Helper.cs",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\BLL\\WebServices\\Helper\\SAP\\MM_71_Helper.cs",
+              "RelativeDocumentMoniker": "BLL\\WebServices\\Helper\\SAP\\MM_71_Helper.cs",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\BLL\\WebServices\\Helper\\SAP\\MM_71_Helper.cs",
+              "RelativeToolTip": "BLL\\WebServices\\Helper\\SAP\\MM_71_Helper.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAAA4AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T07:51:05.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "POMappingAWController.cs",
+              "DocumentMoniker": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\API\\TaskForm\\POMappingAW\\POMappingAWController.cs",
+              "RelativeDocumentMoniker": "PLL\\API\\TaskForm\\POMappingAW\\POMappingAWController.cs",
+              "ToolTip": "C:\\MyWork\\TU_GIT\\ArtworkProj\\PLL\\API\\TaskForm\\POMappingAW\\POMappingAWController.cs",
+              "RelativeToolTip": "PLL\\API\\TaskForm\\POMappingAW\\POMappingAWController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-04T07:49:51.915Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

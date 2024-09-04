@@ -595,6 +595,8 @@ namespace BLL.Services
                 }
             }
 
+            username = ConfigurationManager.AppSettings["OTUSERNAME_Internal"];
+            password = ConfigurationManager.AppSettings["OTPASSWORD_Internal"];
             AuthenticationClient authClient = new AuthenticationClient();
 
             try
